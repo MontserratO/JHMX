@@ -1,0 +1,587 @@
+/* ============================================================
+   JUSTICIA HÍDRICA — Hoja de estilos
+   Organizada por: tokens · base · barras · pie · home
+   Los estilos de las demás páginas se irán agregando por sección.
+   ============================================================ */
+
+/* ---------- TOKENS (cambia aquí y cambia en todo el sitio) ---------- */
+:root {
+    /* Marca / agua */
+    --agua:         #6ec089;   /* verde agua, color de marca */
+    --agua-oscuro:  #498d5f;   /* barra del sistema, bordes */
+    --agua-claro:   #d9f1f2;   /* fondos suaves, hover de tarjetas */
+    --agua-profundo:#0c231e;   /* barra de gobierno */
+    --agua-brillo:  #32bd60;   /* acentos vivos */
+
+    /* Institucional Colsan */
+    --colsan-rojo:  #8c1713;   /* pie de página, texto barra Colsan */
+
+    /* Neutros */
+    --tinta:        #24302b;   /* texto principal (más contraste que el #444 viejo) */
+    --tinta-suave:  #5f6b64;
+    --papel:        #ffffff;
+    --niebla:       #eef1f5;   /* fondos de sección */
+    --linea:        #e2e8e4;
+
+    /* Tipografía */
+    --fuente-titulo: 'Lora', Cambria, Georgia, 'Times New Roman', serif;
+    --fuente-texto:  'Open Sans', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+
+    /* Radios y sombras */
+    --radio:      12px;
+    --radio-sm:   8px;
+    --sombra:     0 6px 24px rgba(36, 48, 43, 0.10);
+    --sombra-alta:0 14px 40px rgba(36, 48, 43, 0.18);
+
+    /* Transición estándar */
+    --easing: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------- BASE ---------- */
+* { box-sizing: border-box; }
+
+body {
+    font-family: var(--fuente-texto);
+    color: var(--tinta);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* Lora se reserva para el titulo principal del hero (.IniTit h1),
+   donde el tamano grande la luce. Todo lo demas va en Open Sans: las
+   serifas en MAYUSCULA SOSTENIDA se amontonan y se ven pesadas. */
+h1, h2, h3, h4, h5, h6 { font-family: var(--fuente-texto); font-weight: 700; }
+.IniTit h1 { font-family: var(--fuente-titulo); letter-spacing: -0.01em; }
+
+a { color: var(--agua-oscuro); text-decoration: none !important; transition: color 0.2s ease; }
+a:hover { color: var(--agua-brillo); }
+
+.just { text-align: justify !important; }
+
+/* Foco visible por teclado (accesibilidad) */
+a:focus-visible,
+button:focus-visible,
+.btn-a:focus-visible,
+.nav-link:focus-visible {
+    outline: 3px solid var(--agua);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Botón de marca */
+.btn-a {
+    background: var(--agua);
+    color: #fff;
+    border: none;
+    border-radius: var(--radio-sm);
+    padding: 10px 26px;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    display: inline-block;
+    transition: transform 0.2s var(--easing), background 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-a:hover {
+    background: var(--agua-oscuro);
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: var(--sombra);
+}
+
+/* Tablas (para las páginas de base de datos, ya listas para después) */
+table { width: 100%; margin-bottom: 1rem; border-collapse: collapse; }
+th, td { padding: 0.75rem; text-align: center; vertical-align: middle; border-top: 1px solid var(--linea); }
+thead { color: #fff; background-color: var(--agua); }
+thead th { vertical-align: middle; text-align: center; border-bottom: 2px solid var(--agua-oscuro); }
+table:hover tbody tr:hover { background-color: rgba(110, 192, 137, 0.10); }
+th a { color: #fff; }
+th a:hover { color: #e4f6ea; }
+
+/* ---------- BARRA GOBIERNO DE MÉXICO ---------- */
+.nav-gob { background-color: var(--agua-profundo) !important; }
+#nav-gob { z-index: 996; transition: all 0.5s; }
+.nav-gob .navbar-nav a {
+    color: rgba(255, 255, 255, 0.75);
+    font-family: var(--fuente-texto);
+    font-size: 0.9rem;
+}
+.nav-gob .navbar-nav a:hover { color: #fff !important; }
+.nav-gob .navbar-brand img { height: 24px; }
+
+/* Al bajar 100px, nav-gob se esconde hacia arriba (lo hace navbars.js) */
+#nav-gob.nav-gob-scrolled { top: -56px; }
+
+/* ---------- BARRA COLSAN ---------- */
+.nav-colsan { background-color: #f3f4f2 !important; border-bottom: 1px solid var(--linea); }
+#nav-colsan { transition: all 0.5s; z-index: 996; }
+#Principal #nav-colsan { z-index: 997; top: 56px; }
+
+/* La barra Colsan se comporta distinto segun la pagina:
+     - En la home va DEBAJO de nav-gob, asi que al bajar sube a top 0.
+     - En subpaginas es la de arriba, asi que al bajar se esconde. */
+#nav-colsan.nav-colsan-scrolled { top: -56px; }
+#Principal #nav-colsan.nav-colsan-scrolled { top: 0; }
+.nav-colsan .navbar-brand img { height: 34px; }
+.nav-colsan .navbar-nav a {
+    color: var(--colsan-rojo) !important;
+    font-family: var(--fuente-texto);
+    font-weight: 600;
+    font-size: 0.92rem;
+}
+.nav-colsan .navbar-nav a:hover { color: rgba(140, 23, 19, 0.6) !important; }
+.nav-colsan .dropdown-menu {
+    border: none;
+    border-radius: var(--radio-sm);
+    box-shadow: var(--sombra);
+    padding: 8px;
+}
+.nav-colsan .dropdown-item { border-radius: 6px; font-size: 0.9rem; }
+.nav-colsan .dropdown-item:hover { background: var(--agua-claro); color: var(--colsan-rojo); }
+
+/* ---------- BARRA DEL SISTEMA (para subpáginas) ---------- */
+.nav-sistem { background-color: var(--agua-oscuro) !important; }
+#nav-sistem { transition: all 0.5s; z-index: 1001; top: 56px; }
+
+/* Al bajar, sube a ocupar el lugar de la barra que se escondio */
+#nav-sistem.nav-sistem-scrolled { top: 0; }
+.nav-sistem .navbar-brand img { height: 34px !important; }
+.nav-sistem .navbar-nav a {
+    color: #eef7f1 !important;
+    font-family: var(--fuente-texto);
+    font-weight: 600;
+}
+.nav-sistem .navbar-nav a:hover {
+    color: var(--agua-oscuro) !important;
+    background-color: #fff;
+    border-radius: 12px;
+}
+.nav-sistem .nav-item { margin: 0 5px; }
+
+/* ---------- PIE COLSAN ---------- */
+.footer-princ { background-color: var(--colsan-rojo) !important; color: #fff !important; }
+.footer-princ,
+.footer-princ p,
+.footer-princ h6,
+.footer-princ a { color: #fff !important; }
+.footer-princ img { height: 58px; }
+.footer-princ a:hover { text-decoration: underline !important; opacity: 0.85; }
+.footer-princ h6 { letter-spacing: 0.03em; }
+.footer-princ p { font-size: 0.9rem; }
+.red { font-size: 32px; margin-right: 18px; }
+.footer-sec { background-color: var(--niebla) !important; font-size: 0.85rem; color: var(--tinta-suave); }
+
+/* ============================================================
+   HOME
+   ============================================================ */
+
+/* Encabezado con imágenes de fondo rotando */
+#header {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 90vh;
+    --opacidad-negro: 0.28;
+    background-image: linear-gradient(rgba(0,0,0,var(--opacidad-negro)), rgba(0,0,0,var(--opacidad-negro))), url('../../img/Portada/AcueductoII.png');
+    transition: background-image 1s ease-in-out;
+    z-index: 1;
+}
+#Principal #header { height: 100vh !important; }
+#background-overlay {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+    background-attachment: fixed; background-repeat: no-repeat;
+    opacity: 0; z-index: -1;
+    transition: opacity 1s ease-in-out;
+}
+
+/* Título principal en la caja blanca */
+/* El cuadro del titulo arranca justo donde terminan las dos barras fijas
+   (56px + 56px) y luego se sube con margin-top negativo, para que su borde
+   superior quede oculto detras de la barra y parezca que sale de ella.
+   La linea verde de 12px cruza todo el ancho; el cuadro blanco pasa POR
+   ENCIMA de ella y la tapa en su tramo, dando la ilusion de continuidad. */
+.IniTit {
+    position: absolute;
+    top: 112px;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+    border-top: 12px solid var(--agua-oscuro);
+    text-align: center;
+}
+.IniTit h1 {
+    font-size: clamp(2rem, 4.5vw, 3.1rem);
+    color: var(--tinta);          /* negro: la caja de atras es blanca */
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+/* OJO: este selector debe ser .IniTit .shadow-green (no solo .shadow-green).
+   La regla .IniTit h1 de arriba tiene mas especificidad y anularia el
+   margin-top negativo, que es justo lo que hace que el cuadro suba. */
+.IniTit .shadow-green {
+    border-radius: 0 0 var(--radio) var(--radio);  /* esquinas solo abajo */
+    border: 6px solid var(--agua-oscuro);
+    border-top: none;                              /* el borde de arriba no se ve */
+    position: relative;
+    z-index: 2;                                    /* se pinta encima de la linea verde */
+    margin-top: -20px;                             /* cubre la linea y se mete bajo la barra */
+    padding-top: 2.6rem !important;
+    padding-bottom: 2.2rem !important;
+    background: rgba(255, 255, 255, 0.97);
+    box-shadow: var(--sombra);
+}
+
+.headerP {
+    position: absolute; top: 20vh; left: 0; width: 100%;
+    z-index: 1; padding-top: 40vh; text-align: center;
+}
+
+/* Tarjetas del menú principal */
+/* Tarjetas angostas a proposito: dejan ver la foto de fondo, que es el
+   gancho visual del sitio. El max-width evita que se estiren en pantallas
+   grandes y el h-100 + flex las mantiene todas de la misma altura. */
+.tarjeta-menu { display: flex; }
+.tarjeta-menu > a { display: flex; width: 100%; }
+
+.menuInd .icon-box {
+    max-width: 250px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 26px 18px;
+    position: relative;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: var(--sombra);
+    transition: transform 0.35s var(--easing), box-shadow 0.35s var(--easing);
+    border-radius: var(--radio);
+    z-index: 1;
+    width: 100%;
+    text-align: center;
+}
+.menuInd .icon-box::before {
+    content: "";
+    position: absolute; inset: 0 0 0 0; top: 100%;
+    background: var(--agua);
+    transition: top 0.4s var(--easing);
+    z-index: -1;
+}
+.menuInd .icon-box:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--sombra-alta);
+}
+.menuInd .icon-box:hover::before { top: 0; }
+.menuInd .icon { margin-bottom: 14px; }
+.menuInd .icon i {
+    font-size: 46px; line-height: 1;
+    color: var(--agua-oscuro);
+    transition: color 0.35s var(--easing);
+}
+.menuInd .tit {
+    font-weight: 700;
+    margin-bottom: 0;
+    font-size: 0.98rem;
+    line-height: 1.35;
+    color: var(--tinta);
+    font-family: var(--fuente-texto);
+}
+.menuInd .icon-box:hover .tit,
+.menuInd .icon-box:hover .icon i { color: #fff !important; }
+
+/* Títulos de sección con acento de agua */
+.titulo-seccion { text-align: center; padding: 5px 0 30px; }
+.titulo-seccion h2 {
+    font-family: var(--fuente-texto);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin: 70px 0 20px;
+    padding-bottom: 20px;
+    position: relative;
+}
+.titulo-seccion h2::after {
+    content: "";
+    position: absolute; bottom: 0; left: calc(50% - 40px);
+    width: 80px; height: 4px; border-radius: 4px;
+    background: linear-gradient(90deg, var(--agua-oscuro), var(--agua));
+}
+
+.section-bg { margin-top: 80px; padding-bottom: 50px; background-color: var(--niebla); }
+
+/* Noticias (slider) */
+.noticias .card { border: none; border-radius: var(--radio); overflow: hidden; box-shadow: var(--sombra); }
+.noticias .card-header { background: #fff; border: none; color: var(--agua-oscuro); font-weight: 700; text-align: center; }
+.slider-container h5 { color: var(--tinta) !important; }
+
+/* Contacto */
+/* Sin hueco blanco entre la seccion gris y el pie: el gris llega hasta
+   el borde del footer. */
+.contact { padding-bottom: 70px; margin-bottom: 0; }
+.section-bg { margin-bottom: 0 !important; }
+#main { margin-bottom: 0; padding-bottom: 0; }
+#main > section:last-child { margin-bottom: 0; }
+footer { margin-top: 0; }
+.footer-princ > .container { margin-top: 0 !important; padding-top: 2.5rem; }
+/* La fila se vuelve flex para que todas las cajas midan lo mismo aunque
+   una tenga menos texto que otra. */
+.contact .row { display: flex; flex-wrap: wrap; }
+.contact .row > [class*="col-"] { display: flex; }
+.contact .row > [class*="col-"] > a { display: flex; width: 100%; }
+
+.contact .info-box {
+    color: var(--tinta);
+    text-align: center;
+    box-shadow: var(--sombra);
+    padding: 32px 20px;
+    background-color: #fff;
+    border-radius: var(--radio);
+    width: 100%;
+    min-height: 190px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s var(--easing), box-shadow 0.3s var(--easing);
+}
+.contact .info-box:hover { transform: translateY(-4px); box-shadow: var(--sombra-alta); }
+.contact .info-box i { font-size: 30px; color: var(--agua-oscuro); }
+.contact .info-box h3 { font-size: 1.2rem; color: var(--tinta-suave); font-weight: 700; margin: 12px 0; font-family: var(--fuente-texto); }
+.contact .info-box p { font-size: 0.9rem; margin-bottom: 0; }
+
+/* ---------- Respeto a "reducir movimiento" ---------- */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        transition-duration: 0.001ms !important;
+    }
+    #header { background-attachment: scroll; }
+}
+
+/* ---------- Responsive del encabezado ---------- */
+@media (max-width: 992px) {
+    #header { background-attachment: scroll; }
+    .headerP { padding-top: 30vh; }
+}
+@media (max-width: 991px) {
+    /* En movil las barras colapsan y miden un poco menos */
+    .IniTit { top: 104px; }
+    .IniTit .shadow-green { margin-top: -16px; padding-top: 2rem !important; }
+}
+@media (max-width: 767px) {
+    .headerP { padding-top: 22vh; }
+    .btn-a { padding: 8px 18px; }
+    .IniTit h1 { font-size: 1.6rem; }
+}
+
+/* ============================================================
+   SUBPAGINAS: encabezado, migas de pan, titulos de seccion
+   ============================================================ */
+
+/* Encabezado con foto de fondo (paginas interiores) */
+#headerSec {
+    position: relative;
+    background-size: cover;
+    background-position: center 35%;
+    background-repeat: no-repeat;
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)),
+        url('../../img/AcueductoII-Qrt.JPG');
+    padding-top: 112px;          /* alto de las dos barras fijas */
+    min-height: 350px;
+    display: flex;
+    align-items: center;
+}
+
+/* Degradado al pie: disuelve la foto hacia el blanco del contenido para
+   que no se vea una linea dura de corte. */
+#headerSec::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 80px;
+    pointer-events: none;
+    background: linear-gradient(to bottom,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.65) 55%,
+                rgba(255, 255, 255, 1) 100%);
+}
+
+.headerSec { width: 100%; position: relative; z-index: 1; }
+.headerSec .titulo {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: var(--radio);
+    padding: 1.6rem 2rem;
+    max-width: 900px;
+    text-align: center;
+}
+.headerSec h1 {
+    font-family: var(--fuente-titulo);
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: 700;
+    color: var(--tinta);
+    margin: 0;
+}
+
+/* Migas de pan */
+.bread .breadcrumb { margin-bottom: 0; font-size: 0.9rem; }
+.bread .breadcrumb-item a { color: var(--agua-oscuro); font-weight: 600; }
+.bread .breadcrumb-item.active { color: var(--tinta-suave); }
+
+/* Titulo de subseccion (dentro de una pagina) */
+.titulo-sec { text-align: center; margin: 48px 0 26px; }
+.titulo-sec h2 {
+    font-family: var(--fuente-texto);
+    font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--tinta);
+    padding-bottom: 14px;
+    margin: 0;
+    position: relative;
+}
+.titulo-sec h2::after {
+    content: "";
+    position: absolute; bottom: 0; left: calc(50% - 30px);
+    width: 60px; height: 3px; border-radius: 3px;
+    background: linear-gradient(90deg, var(--agua-oscuro), var(--agua));
+}
+
+/* ============================================================
+   EQUIPO
+   ============================================================ */
+
+/* La tarjeta es un <button>: hay que quitarle los estilos por defecto. */
+.equip {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 1px solid var(--linea);
+    border-radius: var(--radio-sm);
+    background: #fff;
+    overflow: hidden;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(36, 48, 43, 0.07);
+    transition: transform 0.28s var(--easing), box-shadow 0.28s var(--easing),
+                border-color 0.28s ease;
+}
+.equip:hover,
+.equip:focus-visible {
+    transform: translateY(-4px);
+    box-shadow: var(--sombra-alta);
+    border-color: var(--agua);
+}
+
+/* Proporcion FIJA para todas las fotos: es lo que endereza la reticula
+   aunque las imagenes originales vengan de tamanos muy distintos.
+   object-position: top centra el recorte en la cara, no en el pecho. */
+.equip-img {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    background: var(--niebla);
+}
+.equip-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    transition: transform 0.5s var(--easing);
+}
+.equip:hover .equip-img img { transform: scale(1.05); }
+
+/* Senal de que la tarjeta se puede abrir (antes no habia ninguna) */
+.equip-lupa {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--agua);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    opacity: 0;
+    transform: scale(0.7);
+    transition: opacity 0.25s ease, transform 0.25s var(--easing);
+}
+.equip:hover .equip-lupa,
+.equip:focus-visible .equip-lupa { opacity: 1; transform: scale(1); }
+
+/* El nombre va SOBRE la foto, como en el diseno original, en una banda
+   blanca semitransparente al pie de la imagen. */
+.equip-info {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* Altura FIJA: da igual si el nombre ocupa uno o dos renglones, la
+       banda mide lo mismo en todas las tarjetas y quedan alineadas. */
+    height: 46px;
+    padding: 4px 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(2px);
+    transition: background 0.28s ease;
+}
+.equip:hover .equip-info { background: rgba(255, 255, 255, 0.96); }
+.equip-info p {
+    margin: 0;
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--tinta);
+    /* Nunca mas de 2 renglones, para que no se salga de la banda */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Modal de la persona */
+#modalPersona .modal-content { border: none; border-radius: var(--radio); }
+#modalPersona .modal-header {
+    border-bottom: 3px solid var(--agua);
+    align-items: flex-start;
+}
+#modalPersona .modal-title {
+    font-family: var(--fuente-texto);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--tinta);
+}
+#modalPersona .modal-body img {
+    border: 4px solid var(--agua-claro);
+    max-height: 320px;
+    object-fit: cover;
+}
+#modalPersona .modal-footer { border-top: 1px solid var(--linea); }
+.equip-cargo {
+    font-style: italic;
+    color: var(--agua-oscuro);
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 575px) {
+    .equip-info { height: 42px; }
+    .equip-info p { font-size: 0.72rem; }
+    #headerSec { min-height: 300px; padding-top: 104px; }
+    #headerSec::after { height: 100px; }
+}
