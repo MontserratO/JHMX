@@ -1,13 +1,16 @@
 <?php defined('JH_APP') || exit('Acceso no permitido.'); ?>
 
-<!-- ======= Encabezado con fondo rotativo ======= -->
+/*
+* Página principal de Justicia Hídrica México
+*/
+
 <header id="header" class="align-items-center">
     <div id="background-overlay"></div>
 
     <div class="IniTit">
         <div class="justify-content-center">
             <h1 class="shadow-green text-center col-xl-5 col-11 mx-auto py-5">
-                Justicia Hídrica - México
+                Justicia Hídrica · México
             </h1>
         </div>
     </div>
@@ -18,7 +21,7 @@
                 <div class="container" data-aos="fade-up">
                     <div class="row justify-content-center">
                         <div class="col-6 col-md-4 col-lg-2 my-2 tarjeta-menu">
-                            <a href="<?= base_url('ElaguaSLP.php') ?>" class="card-link">
+                            <a href="<?= base_url('ElaguaSLP') ?>" class="card-link">
                                 <div class="icon-box h-100" data-aos="fade-up" data-aos-delay="100">
                                     <div class="icon"><i class="bi bi-droplet-half"></i></div>
                                     <h3 class="tit">Agua y comunidades en San Luis Potosí</h3>
@@ -26,7 +29,7 @@
                             </a>
                         </div>
                         <div class="col-6 col-md-4 col-lg-2 my-2 tarjeta-menu">
-                            <a href="<?= base_url('Hidropesquisa.php') ?>" class="card-link">
+                            <a href="<?= base_url('Hidropesquisa') ?>" class="card-link">
                                 <div class="icon-box h-100" data-aos="fade-up" data-aos-delay="200">
                                     <div class="icon"><i class="fa-solid fa-hand-holding-droplet"></i></div>
                                     <h3 class="tit">Investigadores comunitarios</h3>
@@ -48,7 +51,7 @@
     </div>
 </header>
 
-<!-- ======= Contenido ======= -->
+
 <main id="main" class="align-items-center">
 
     <section id="noticias" class="noticias">
@@ -60,7 +63,7 @@
 
         <?php if (empty($noticias)): ?>
             <div class="container">
-                <p class="text-center text-muted">Por el momento no hay eventos vigentes.</p>
+                <p class="text-center text-muted">Por ahora no hay eventos vigentes.</p>
             </div>
         <?php else: ?>
             <div class="container">
@@ -94,7 +97,7 @@
             </div>
         <?php endif; ?>
 
-        <!-- Modal de imagen ampliada -->
+        <!-- Modal de noticias -->
         <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
@@ -115,10 +118,11 @@
         <div class="container">
             <div class="row mt-5">
                 <div class="col-md-4 mx-auto" data-aos="fade-up-right" data-aos-delay="150">
-                    <a href="<?= base_url('equipo.php') ?>" class="text-reset">
+                    <a href="<?= base_url('equipo') ?>" class="text-reset">
                         <div class="info-box mt-4">
                             <i class="bi bi-people-fill"></i>
                             <h3>Equipo de investigación</h3>
+                            <p>Conoce a quienes integran el proyecto</p>
                         </div>
                     </a>
                 </div>
@@ -145,8 +149,7 @@
     </section>
 </main>
 
-<!-- Datos para el fondo rotativo (los lee assets/js/home.js).
-     Vienen de la tabla `portada`: cada fila trae Ruta y TextoAlt. -->
+<!-- Fotos para el fondo rotativo  -->
 <script>
     window.__portada = <?= json_encode(
         array_map(fn($img) => base_url($img['Ruta']), $imagenes ?? []),

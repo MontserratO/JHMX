@@ -1,6 +1,9 @@
 <?php defined('JH_APP') || exit('Acceso no permitido.'); ?>
 
-<!-- ======= Encabezado de sección ======= -->
+/*
+* Página del equipo de investigación de El Agua en San Luis Potosí
+*/
+
 <header id="headerSec">
     <div class="headerSec">
         <div class="container titulo rounded shadow">
@@ -23,6 +26,7 @@
         </div>
     </section>
 
+    <!-- Listado del equipo -->
     <section id="investig" class="investig">
         <div class="container mt-2">
 
@@ -38,14 +42,11 @@
                 <div class="row justify-content-center gx-3 gy-4 mb-5">
                     <?php foreach ($personas as $persona): ?>
                         <?php
-                        // Si la persona no tiene foto, se usa la imagen genérica.
                         $foto = !empty($persona['Imagen'])
                             ? base_url($persona['Imagen'])
                             : base_url('img/foto.png');
                         ?>
                         <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                            <!-- Es un <button> y no un <div>: así funciona con teclado
-                                 y los lectores de pantalla lo anuncian como accionable. -->
                             <button type="button"
                                     class="equip"
                                     data-bs-toggle="modal"
@@ -75,31 +76,29 @@
     </section>
 </main>
 
-<!-- ======= Modal único =======
-     El código viejo generaba UN MODAL POR PERSONA (29 modales en el HTML,
-     con las fotos cargadas dos veces). Aquí hay uno solo que se rellena al
-     hacer clic, con los datos que trae la tarjeta en sus atributos data-*. -->
+<!-- ======= Modal  ======= -->
 <div class="modal fade" id="modalPersona" tabindex="-1" aria-labelledby="modalPersonaLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="modalPersonaLabel"></h2>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-12 col-md-4 text-center mb-3 mb-md-0">
-                        <img id="modalPersonaFoto" src="" alt="" class="img-fluid rounded">
-                    </div>
-                    <div class="col-12 col-md-8">
-                        <p id="modalPersonaCargo" class="equip-cargo"></p>
-                        <p id="modalPersonaDesc" class="just mb-0"></p>
-                    </div>
+        <div class="modal-content persona-modal">
+
+            <button type="button" class="persona-cerrar" data-bs-dismiss="modal" aria-label="Cerrar">
+                <i class="bi bi-x-lg"></i>
+            </button>
+
+            <div class="persona-grid">
+                <!-- Retrato -->
+                <div class="persona-media">
+                    <img id="modalPersonaFoto" src="" alt="">
+                </div>
+
+                <!-- Datos -->
+                <div class="persona-datos">
+                    <h2 class="persona-nombre" id="modalPersonaLabel"></h2>
+                    <p class="persona-cargo" id="modalPersonaCargo"></p>
+                    <p class="persona-desc" id="modalPersonaDesc"></p>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn-a" data-bs-dismiss="modal">Cerrar</button>
-            </div>
+
         </div>
     </div>
 </div>

@@ -1,12 +1,7 @@
 <?php
 
 /**
- * PlanesRepository.php — Acceso a `planes` y `plan_documentos`.
- * Reemplaza a ElaguaSLP/planes.json.
- *
- * Nota: agregarDocumento() recibe el ID de UN plan concreto. Eso corrige el
- * bug del código viejo, donde subir un PDF lo agregaba a todos los planes de
- * la categoría por usar `foreach ($planes[$cat] as &$plan)`.
+ * Acceso a `planes` y `plan_documentos`. Reemplaza a ElaguaSLP/planes.json.
  */
 
 defined('JH_APP') || exit('Acceso no permitido.');
@@ -19,11 +14,8 @@ final class PlanesRepository extends Repository
     protected array $columns  = ['ID', 'Categoria', 'Nombre', 'Descripcion', 'Anio', 'Orden'];
     protected array $fillable = ['Categoria', 'Nombre', 'Descripcion', 'Anio', 'Imagen', 'Orden'];
 
-    /**
-     * Planes agrupados por categoría, cada uno con sus documentos dentro.
-     * Es la forma en que la página los necesita para pintarse.
-     */
     public function agrupados(): array
+    // Devuelve los planes agrupados por categoría, cada uno con sus documentos
     {
         $stmt = $this->db()->prepare("SELECT * FROM planes ORDER BY Orden, Categoria, ID");
         $stmt->execute();
@@ -51,31 +43,31 @@ final class PlanesRepository extends Repository
         return $agrupado;
     }
 
-    /** Documentos de un plan concreto. */
     public function documentos(int $planId): array
+    // Devuelve los documentos de un plan concreto, ordenados por Orden y ID
     {
         $stmt = $this->db()->prepare("SELECT * FROM plan_documentos WHERE plan_id = ? ORDER BY Orden, ID");
         $stmt->execute([$planId]);
         return $stmt->fetchAll();
     }
 
-    /** Agrega un PDF a UN plan específico. */
     public function agregarDocumento(int $planId, string $nombre, string $ruta, int $orden = 0): bool
+    // Inserta un registro en un plan
     {
         $sql  = "INSERT INTO plan_documentos (plan_id, Nombre, Ruta, Orden) VALUES (?, ?, ?, ?)";
         $stmt = $this->db()->prepare($sql);
         return $stmt->execute([$planId, $nombre, $ruta, $orden]);
     }
 
-    /** Elimina un documento (no borra el PDF del disco). */
     public function eliminarDocumento(int $documentoId): bool
+    // Borra un registro de la tabla plan_documentos. No borra el archivo del disco.
     {
         $stmt = $this->db()->prepare("DELETE FROM plan_documentos WHERE ID = ?");
         return $stmt->execute([$documentoId]);
     }
 
-    /** Lista de categorías existentes, para los menús del panel. */
     public function categorias(): array
+    // Devuelve las categorías de planes existentes
     {
         $stmt = $this->db()->prepare("SELECT DISTINCT Categoria FROM planes ORDER BY Categoria");
         $stmt->execute();

@@ -1,3 +1,7 @@
+/*
+    * Layout de Footer (Visible en todas las páginas)
+*/
+
 <?php defined('JH_APP') || exit('Acceso no permitido.'); ?>
 <footer class="text-center text-lg-start bg-light text-muted">
     <section class="footer-princ">

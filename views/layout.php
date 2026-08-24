@@ -24,7 +24,7 @@
     <!-- Estilos del sitio -->
     <link href="<?= base_url('assets/css/estilos.css') ?>" rel="stylesheet">
 
-    <?php // CSS adicional que pida la página (ej. swiffy-slider en la home)
+    <?php
     foreach ($opciones['css'] ?? [] as $hoja): ?>
         <link href="<?= e($hoja) ?>" rel="stylesheet">
     <?php endforeach; ?>
@@ -33,7 +33,6 @@
 <body id="<?= e($opciones['body_id'] ?? 'Pagina') ?>">
 
     <?php
-    // Barras solicitadas por la página. Por defecto, las dos institucionales.
     foreach ($opciones['navbars'] ?? ['navbar-gob', 'navbar-colsan'] as $barra) {
         View::partial($barra);
     }
@@ -48,7 +47,7 @@
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="<?= base_url('assets/js/navbars.js') ?>"></script>
 
-    <?php // JS adicional que pida la página
+    <?php
     foreach ($opciones['js'] ?? [] as $script): ?>
         <script src="<?= e($script) ?>"></script>
     <?php endforeach; ?>

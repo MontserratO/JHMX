@@ -1,11 +1,7 @@
 <?php
 
 /**
- * TesisDocumentosRepository.php — Acceso a la tabla `tesis_documentos`.
- *
- * Reemplaza a ElaguaSLP/tesis.json. Es la tesis CON PDF descargable.
- * No confundir con TesisRepository, que maneja la tabla `tesis` del
- * catálogo bibliográfico: son datos distintos y tablas separadas.
+ * Acceso a la tabla `tesis_documentos`.Reemplaza a tesis.json. Es la tesis CON PDF descargable.
  */
 
 defined('JH_APP') || exit('Acceso no permitido.');

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Acceso a la tabla `tesis` de la bd
+ */
+
 defined('JH_APP') || exit('Acceso no permitido.');
 
 final class TesisRepository extends Repository

@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Acceso a la tabla `leyes` de la bd
+ */
 
 defined('JH_APP') || exit('Acceso no permitido.');
 

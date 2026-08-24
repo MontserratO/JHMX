@@ -1,7 +1,4 @@
-/* equipo.js — Rellena el modal único con los datos de la tarjeta pulsada.
-
-   Se usa textContent (no innerHTML) al insertar los datos: aunque ya vienen
-   escapados desde PHP, así el navegador nunca los interpreta como HTML. */
+/* Rellena el modal único con los datos de la tarjeta pulsada. */
 
 (function () {
     "use strict";

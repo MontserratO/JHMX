@@ -1,0 +1,106 @@
+# =====================================================================
+#  Justicia Hídrica — Configuración del sitio 
+=====================================================================
+
+
+# ---------------------------------------------------------------------
+# 1. NO LISTAR CARPETAS
+#    Sin esto, entrar a /img/ muestra la lista completa de archivos.
+# ---------------------------------------------------------------------
+Options -Indexes
+
+
+# ---------------------------------------------------------------------
+# 2. URLs LIMPIAS (sin .php)
+#    /equipo        →  sirve equipo.php
+#    /equipo.php    →  redirige a /equipo (para no tener dos URLs con el
+#                      mismo contenido, que perjudica el SEO)
+# ---------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Redirige las URLs con .php a su versión limpia (301 = permanente).
+    # La condición THE_REQUEST evita que se dispare en bucle con la regla
+    # interna de abajo: solo actúa si el .php venía en la petición real.
+    RewriteCond %{THE_REQUEST} \s/+(.+?)\.php[\s?] [NC]
+    RewriteRule ^ /%1 [R=301,L,NE]
+
+    # Sirve el archivo .php cuando la URL no lo lleva.
+    # Solo si NO existe ya una carpeta con ese nombre y SÍ existe el .php.
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}\.php -f
+    RewriteRule ^(.+)$ $1.php [L]
+</IfModule>
+
+
+# ---------------------------------------------------------------------
+# 3. PÁGINA DE ERROR PROPIA
+#    (Crea error.php en la raíz; si no existe, comenta esta línea.)
+# ---------------------------------------------------------------------
+ErrorDocument 404 /justiciahidricamx/error.php
+
+
+# ---------------------------------------------------------------------
+# 4. CABECERAS DE SEGURIDAD
+#    Refuerzan lo que el servidor institucional ya envía.
+# ---------------------------------------------------------------------
+<IfModule mod_headers.c>
+    # Evita que el navegador "adivine" el tipo de archivo (ataques MIME).
+    Header set X-Content-Type-Options "nosniff"
+
+    # Impide que el sitio se cargue dentro de un iframe ajeno (clickjacking).
+    Header set X-Frame-Options "SAMEORIGIN"
+
+    # Limita qué información de referencia se envía a sitios externos.
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # Bloquea el acceso a cámara, micrófono y ubicación: el sitio no los usa.
+    Header set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+</IfModule>
+
+
+# ---------------------------------------------------------------------
+# 5. COMPRESIÓN
+#    Reduce bastante el peso de CSS, JS y HTML al viajar por la red.
+# ---------------------------------------------------------------------
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
+    AddOutputFilterByType DEFLATE application/javascript application/json
+    AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+
+# ---------------------------------------------------------------------
+# 6. CACHÉ DEL NAVEGADOR
+#    Las fotos y los PDFs casi nunca cambian: que el navegador los guarde
+#    evita descargarlos en cada visita. El HTML no se cachea, para que los
+#    cambios de contenido se vean de inmediato.
+# ---------------------------------------------------------------------
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpeg              "access plus 6 months"
+    ExpiresByType image/png               "access plus 6 months"
+    ExpiresByType image/gif               "access plus 6 months"
+    ExpiresByType image/svg+xml           "access plus 6 months"
+    ExpiresByType image/webp              "access plus 6 months"
+    ExpiresByType application/pdf         "access plus 1 month"
+    ExpiresByType video/mp4               "access plus 6 months"
+    ExpiresByType text/css                "access plus 1 week"
+    ExpiresByType application/javascript  "access plus 1 week"
+    ExpiresByType font/woff2              "access plus 1 year"
+</IfModule>
+
+
+# ---------------------------------------------------------------------
+# 7. BLOQUEAR ARCHIVOS SENSIBLES
+#    Por si alguno se sube por error (respaldos, SQL, configuraciones).
+# ---------------------------------------------------------------------
+<FilesMatch "\.(sql|log|ini|bak|old|json|md)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>

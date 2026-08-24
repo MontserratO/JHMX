@@ -1,11 +1,7 @@
 <?php
 
 /**
- * GaleriasRepository.php — Acceso a `galerias` y `galeria_archivos`.
- *
- * Reemplaza de un solo golpe a imagenes.json, videos.json y esquemas.json,
- * que tenían la misma forma. Se distinguen por el campo Tipo:
- * 'imagen' | 'video' | 'esquema'.
+ * Acceso a `galerias` y `galeria_archivos`. Reemplaza a imagenes.json, videos.json y esquemas.json,con nuevo campo Tipo: 'imagen' | 'video' | 'esquema'.
  */
 
 defined('JH_APP') || exit('Acceso no permitido.');
@@ -18,11 +14,8 @@ final class GaleriasRepository extends Repository
     protected array $columns  = ['ID', 'Nombre', 'Tipo', 'Orden'];
     protected array $fillable = ['Nombre', 'Tipo', 'Orden'];
 
-    /**
-     * Devuelve las galerías de un tipo con todos sus archivos dentro:
-     *   ['Agua en San Luis Potosí' => [archivo, archivo...], ...]
-     */
     public function porTipo(string $tipo): array
+    //Devuelve las galerias de un tipo con todos sus archivos
     {
         $tipo = pick($tipo, ['imagen', 'video', 'esquema'], 'imagen');
 
@@ -44,8 +37,8 @@ final class GaleriasRepository extends Repository
         return $agrupado;
     }
 
-    /** Archivos de una galería concreta. */
     public function archivos(int $galeriaId): array
+    // Devuelve los archivos de una galería concreta, ordenados por Orden y ID
     {
         $sql  = "SELECT * FROM galeria_archivos WHERE galeria_id = ? ORDER BY Orden, ID";
         $stmt = $this->db()->prepare($sql);
@@ -53,8 +46,8 @@ final class GaleriasRepository extends Repository
         return $stmt->fetchAll();
     }
 
-    /** Busca una galería por nombre y tipo; si no existe, la crea. */
     public function galeriaId(string $nombre, string $tipo): int
+    //Busca una galería por nombre y tipo; si no existe, la crea. Devuelve su ID.
     {
         $stmt = $this->db()->prepare("SELECT ID FROM galerias WHERE Nombre = ? AND Tipo = ?");
         $stmt->execute([$nombre, $tipo]);
@@ -69,9 +62,9 @@ final class GaleriasRepository extends Repository
         return (int) $this->db()->lastInsertId();
     }
 
-    /** Agrega un archivo a una galería. $libro solo aplica a esquemas. */
     public function agregarArchivo(int $galeriaId, string $titulo, string $ruta,
                                    ?string $libro = null, int $orden = 0): bool
+                                   // Inserta un registro de tipo libro
     {
         $sql  = "INSERT INTO galeria_archivos (galeria_id, Titulo, Ruta, Libro, Orden)
                  VALUES (?, ?, ?, ?, ?)";
@@ -79,8 +72,8 @@ final class GaleriasRepository extends Repository
         return $stmt->execute([$galeriaId, $titulo, $ruta, $libro, $orden]);
     }
 
-    /** Elimina un archivo de la galería (no borra el archivo del disco). */
     public function eliminarArchivo(int $archivoId): bool
+    // Borra un registro de la galeria. Si no existía, no hace nada.
     {
         $stmt = $this->db()->prepare("DELETE FROM galeria_archivos WHERE ID = ?");
         return $stmt->execute([$archivoId]);

@@ -1,8 +1,7 @@
 <?php
 
 /**
- * NoticiasRepository.php — Acceso a la tabla `noticias`.
- * Reemplaza a noticias.json.
+ * Acceso a la tabla `noticias`. Reemplaza a noticias.json.
  */
 
 defined('JH_APP') || exit('Acceso no permitido.');
@@ -15,12 +14,8 @@ final class NoticiasRepository extends Repository
     protected array $columns  = ['ID', 'Titulo', 'Imagen', 'Desde', 'Hasta'];
     protected array $fillable = ['Titulo', 'Imagen', 'Desde', 'Hasta'];
 
-    /**
-     * Noticias vigentes hoy. Esto es lo que antes se hacía cargando todo el
-     * JSON a memoria y filtrándolo con array_filter en PHP; ahora lo resuelve
-     * la base de datos con el índice idx_vigencia.
-     */
     public function vigentes(): array
+    // Devuelve las noticias vigentes hoy, ordenadas por fecha de inicio
     {
         $sql  = "SELECT * FROM `{$this->table}`
                  WHERE CURDATE() BETWEEN `Desde` AND `Hasta`

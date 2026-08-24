@@ -1,5 +1,8 @@
+/*
+    * Layout de Navbar del Sistema (Visible en paginas secundarias)
+*/
+
 <?php defined('JH_APP') || exit('Acceso no permitido.'); ?>
-<!-- Barra general del sitio (subpáginas) -->
 <nav id="nav-sistem" class="nav-sistem navbar navbar-expand-lg navbar-light fixed-top">
     <div class="container">
         <a class="navbar-brand me-4" href="<?= base_url() ?>">
@@ -12,10 +15,10 @@
         <div class="collapse navbar-collapse" id="navbarGen">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= base_url('ElaguaSLP.php') ?>">Agua en SLP</a>
+                    <a class="nav-link" href="<?= base_url('ElaguaSLP') ?>">Agua en SLP</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= base_url('Hidropesquisa.php') ?>">Hidropesquisa</a>
+                    <a class="nav-link" href="<?= base_url('Hidropesquisa') ?>">Hidropesquisa</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="https://agua.conahcyt.mx/trasvases/">Trasvases</a>
