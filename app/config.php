@@ -24,5 +24,6 @@ return [
     'env' => 'prod',
 
     // Ruta base del sitio dentro del dominio.
-    'base_path' => '/justiciahidricamx/',
+    //cambiar
+    'base_path' => '/JHMX/',
 ];

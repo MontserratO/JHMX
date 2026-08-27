@@ -1,9 +1,9 @@
-<?php defined('JH_APP') || exit('Acceso no permitido.'); ?>
-
-/*
+<?php defined('JH_APP') || exit('Acceso no permitido.');
+/**
 * Pagina principal de El Agua en San Luis Potosí
 */
-
+ ?>
+ 
 <header id="header" class="header-rot">
     <div id="background-overlay"></div>
 

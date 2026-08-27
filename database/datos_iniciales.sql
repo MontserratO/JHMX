@@ -406,3 +406,4 @@ INSERT INTO portada (Ruta, TextoAlt, Activa, Orden) VALUES
 ('img/Portada/AcueductoII.png', 'Acueducto II', 1, 0),
 ('img/Portada/MonterreyVI.png', 'Monterrey VI', 1, 1),
 ('img/Portada/Realito.jpg', 'El Realito', 1, 2);
+('img/Portada/Queretaro.jpg', 'Queretaro', 1, 3);

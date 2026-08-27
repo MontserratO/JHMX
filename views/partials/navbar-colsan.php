@@ -1,8 +1,9 @@
-/*
-    * Layout de Navbar del Colegio de San Luis (Visible en todas las páginas)
+<?php defined('JH_APP') || exit('Acceso no permitido.');
+/**
+* Layout de Navbar del Colegio de San Luis (Visible en todas las páginas)
 */
-
-<?php defined('JH_APP') || exit('Acceso no permitido.'); ?>
+ ?>
+ 
 <nav id="nav-colsan" class="nav-colsan navbar navbar-expand-lg navbar-light fixed-top">
     <div class="container">
         <a class="navbar-brand" href="https://www.colsan.edu.mx/">

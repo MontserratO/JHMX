@@ -1,9 +1,9 @@
-<?php defined('JH_APP') || exit('Acceso no permitido.'); ?>
-
-/*
+<?php defined('JH_APP') || exit('Acceso no permitido.');
+/**
 * Página principal de Justicia Hídrica México
 */
-
+ ?>
+ 
 <header id="header" class="align-items-center">
     <div id="background-overlay"></div>
 
@@ -122,7 +122,6 @@
                         <div class="info-box mt-4">
                             <i class="bi bi-people-fill"></i>
                             <h3>Equipo de investigación</h3>
-                            <p>Conoce a quienes integran el proyecto</p>
                         </div>
                     </a>
                 </div>

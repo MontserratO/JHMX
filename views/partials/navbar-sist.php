@@ -1,8 +1,9 @@
-/*
-    * Layout de Navbar del Subsistema El Agua en SLP (Visible solo en páginas de Agenda en SLP)
+<?php defined('JH_APP') || exit('Acceso no permitido.');
+/**
+* Layout de Navbar del Subsistema El Agua en SLP (Visible solo en páginas de Agenda en SLP)
 */
+ ?>
 
-<?php defined('JH_APP') || exit('Acceso no permitido.'); ?>
 <nav id="nav-sistem" class="nav-sistem navbar navbar-expand-lg navbar-light fixed-top">
     <div class="container">
         <a class="navbar-brand me-3" href="<?= base_url() ?>">

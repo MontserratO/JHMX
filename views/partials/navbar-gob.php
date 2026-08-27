@@ -1,8 +1,9 @@
-/*
-    * Layout de Navbar del Gobierno de México (Visible solo en la página principal)
+<?php defined('JH_APP') || exit('Acceso no permitido.');
+/**
+* Layout de Navbar del Gobierno de México (Visible solo en la página principal)
 */
-
-<?php defined('JH_APP') || exit('Acceso no permitido.'); ?>
+ ?>
+ 
 <nav id="nav-gob" class="nav-gob navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container">
         <a class="navbar-brand" href="https://www.gob.mx/">

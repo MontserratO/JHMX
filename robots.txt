@@ -1,0 +1,19 @@
+# =====================================================================
+# Justicia Hídrica México
+#
+#  Guía a los buscadores sobre qué vale la pena indexar.
+# =====================================================================
+
+User-agent: *
+Allow: /
+
+# Las URLs con parámetros de orden y búsqueda generan miles de
+# combinaciones del mismo contenido. Se excluyen para que el buscador
+# no desperdicie tiempo ahí y se centre en las páginas reales.
+Disallow: /*?order=
+Disallow: /*?dir=
+Disallow: /*?busqueda=
+Disallow: /*?filtro=
+
+# Ubicación del mapa del sitio
+Sitemap: https://www.colsan.edu.mx/justiciahidricamx/sitemap.xml

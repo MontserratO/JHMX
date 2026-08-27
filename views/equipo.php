@@ -1,9 +1,9 @@
-<?php defined('JH_APP') || exit('Acceso no permitido.'); ?>
-
-/*
+<?php defined('JH_APP') || exit('Acceso no permitido.');
+/**
 * Página del equipo de investigación de El Agua en San Luis Potosí
 */
-
+ ?>
+ 
 <header id="headerSec">
     <div class="headerSec">
         <div class="container titulo rounded shadow">
