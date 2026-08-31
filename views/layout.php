@@ -6,8 +6,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="<?= e($opciones['descripcion'] ?? 'Justicia Hídrica en México — El Colegio de San Luis') ?>">
-    <link rel="shortcut icon" type="image/x-icon" href="https://cdn.jsdelivr.net/gh/MontserratO/imagenesPub@main/img/logoI.png">
+    <link rel="shortcut icon" type="image/x-icon" href="<?= base_url('img/logoI.png') ?>">
     <title><?= e($titulo) ?></title>
+
+    <?php
+    $esquema  = (($_SERVER['HTTPS'] ?? '') === 'on'
+                 || ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https') ? 'https' : 'http';
+    $dominio  = $esquema . '://' . ($_SERVER['HTTP_HOST'] ?? 'www.colsan.edu.mx');
+    $urlPagina = $dominio . ($_SERVER['REQUEST_URI'] ?? base_url());
+    $urlImagen = $dominio . base_url($opciones['og_imagen'] ?? 'img/JusticiaHMX.png');
+    ?>
+
+    <!-- Vista previa al compartir el enlace (WhatsApp, Facebook, X...) -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Justicia Hídrica México">
+    <meta property="og:locale" content="es_MX">
+    <meta property="og:title" content="<?= e($titulo) ?>">
+    <meta property="og:description" content="<?= e($opciones['descripcion'] ?? 'Justicia Hídrica en México — El Colegio de San Luis') ?>">
+    <meta property="og:url" content="<?= e($urlPagina) ?>">
+    <meta property="og:image" content="<?= e($urlImagen) ?>">
+    <meta name="twitter:card" content="summary_large_image">
 
     <!-- Tipografías -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,16 +39,18 @@
           crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css">
 
-    <!-- Estilos del sitio -->
-    <link href="<?= base_url('assets/css/estilos.css') ?>" rel="stylesheet">
+    <!-- Estilos generales -->
+    <link href="<?= base_url('assets/css/base.css') ?>" rel="stylesheet">
 
-    <?php
+    <?php // CSS adicional que pida la página: la hoja de su subsistema 
     foreach ($opciones['css'] ?? [] as $hoja): ?>
         <link href="<?= e($hoja) ?>" rel="stylesheet">
     <?php endforeach; ?>
 </head>
 
 <body id="<?= e($opciones['body_id'] ?? 'Pagina') ?>">
+
+    <a href="#main" class="saltar-contenido">Saltar al contenido principal</a>
 
     <?php
     foreach ($opciones['navbars'] ?? ['navbar-gob', 'navbar-colsan'] as $barra) {

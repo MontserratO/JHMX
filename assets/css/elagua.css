@@ -1,0 +1,277 @@
+/* ============================================================
+   Estilos del subsistema "Agua en San Luis Potosi".
+   ============================================================ */
+
+/* ============================================================
+   AGUA EN SLP  (y otras portadas de subsistema)
+   ============================================================ */
+
+/* Encabezado con fondo rotativo. */
+#header.header-rot {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    width: 100%;
+    min-height: 88vh;
+    --opacidad-negro: 0.25;
+    display: flex;
+    align-items: flex-end;
+    padding-top: 112px;
+    padding-bottom: 60px;
+    z-index: 1;
+    transition: background-image 1s ease-in-out;
+}
+
+/* Caja blanca con el titulo, la entrada y el boton */
+.hero-caja-cont { position: relative; z-index: 2; }
+.hero-caja {
+    background: rgba(255, 255, 255, 0.94);
+    border-top: 10px solid var(--agua-oscuro);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra-alta);
+    padding: 1.9rem 3rem 1.7rem;
+    max-width: 1140px;
+    margin: 0 auto;
+    text-align: center;
+}
+.hero-caja h1 {
+    font-family: var(--fuente-titulo);
+    font-size: clamp(1.5rem, 3.2vw, 2.3rem);
+    font-weight: 700;
+    color: var(--tinta);
+    margin: 0 0 1rem;
+    line-height: 1.25;
+}
+.hero-caja p {
+    color: var(--tinta-suave);
+    font-size: 1rem;
+    line-height: 1.7;
+    max-width: 78ch;
+    margin: 0 auto 1.3rem;
+}
+
+#header.header-rot::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 40px;
+    pointer-events: none;
+    background: linear-gradient(to bottom,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.85) 100%);
+}
+
+/* Menu de secciones  */
+.menuSub {
+    position: relative;
+    z-index: 3;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+.menuSub .icon-box {
+    max-width: 100%;
+    padding: 30px 16px 26px;
+    border-radius: var(--radio);
+    box-shadow: var(--sombra-alta);
+}
+.menuSub .icon { margin-bottom: 14px; }
+.menuSub .icon i { font-size: 40px; }
+.menuSub .tit { font-size: 0.95rem; line-height: 1.3; }
+.menuSub .icon-box:hover { transform: translateY(-8px); }
+
+/* ---------- Seccion metodologica ---------- */
+.info { padding: 70px 0 40px; }
+.info-intro {
+    text-align: center;
+    font-family: var(--fuente-texto);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.8;
+    color: var(--tinta-suave);
+    max-width: 1040px;
+    margin: 0 auto 2.2rem;
+    padding: 0 22px;
+}
+
+.unidad {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: rgba(110, 192, 137, 0.07);
+    border-left: 4px solid var(--agua-oscuro);
+    border-radius: 0 var(--radio-sm) var(--radio-sm) 0;
+    padding: 18px 22px;
+    cursor: default;
+}
+.unidad > i {
+    font-size: 28px;
+    color: var(--agua-oscuro);
+    flex-shrink: 0;
+    line-height: 1;
+}
+.unidad h3 {
+    font-family: var(--fuente-texto);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--tinta);
+    margin: 0;
+    line-height: 1.3;
+}
+.unidad .sub {
+    font-size: 0.86rem;
+    color: var(--tinta-suave);
+    margin: 3px 0 0;
+}
+
+/* Bloque de texto descriptivo */
+.info-texto {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 22px;
+}
+.info-texto p {
+    text-align: justify;
+    line-height: 1.8;
+    color: var(--tinta-suave);
+    margin-bottom: 1.2rem;
+}
+.info-texto .parrafo-ancho {
+    margin-bottom: 1.6rem;
+}
+
+/* ---------- Bloque del SIG ---------- */
+.sig { padding: 60px 0; }
+.sig p { line-height: 1.75; color: var(--tinta-suave); }
+.sig-texto {
+    max-width: 54ch;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: justify;
+}
+.sig .titulo-seccion h2 { margin-top: 0; }
+.sig img { max-height: 420px; display: block; margin: 0 auto; }
+
+.titulo-seccion.titulo-izq { text-align: left; padding-bottom: 10px; }
+.titulo-seccion.titulo-izq h2 { margin-top: 0; }
+.titulo-seccion.titulo-izq h2::after { left: 0; }
+
+@media (max-width: 991px) {
+    #header.header-rot { background-attachment: scroll; min-height: 74vh; }
+    .hero-caja { padding: 2rem 1.6rem 1.8rem; }
+    .info { padding: 50px 0 30px; }
+}
+
+/* ============================================================
+   BASE DE DATOS
+   ============================================================ */
+
+.base-intro { padding: 40px 0 60px; }
+
+/* Tarjeta de fuente */
+.fuente-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background: #fff;
+    border: 1px solid var(--linea);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra);
+    padding: 30px 26px 24px;
+    text-align: center;
+    color: var(--tinta) !important;
+    transition: transform 0.3s var(--easing), box-shadow 0.3s var(--easing),
+                border-color 0.3s ease;
+}
+.fuente-card:hover,
+.fuente-card:focus-visible {
+    transform: translateY(-6px);
+    box-shadow: var(--sombra-alta);
+    border-color: var(--agua);
+    color: var(--tinta) !important;
+}
+
+.fuente-icono {
+    width: 76px;
+    height: 76px;
+    margin: 0 auto 16px;
+    border-radius: 50%;
+    background: var(--agua-claro);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+}
+.fuente-icono i { font-size: 34px; color: var(--agua-oscuro); }
+.fuente-card:hover .fuente-icono { background: var(--agua); }
+.fuente-card:hover .fuente-icono i { color: #fff; }
+
+.fuente-card h3 {
+    font-family: var(--fuente-texto);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--tinta);
+    margin: 0 0 6px;
+}
+
+.fuente-total {
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--agua-oscuro);
+    margin: 0 0 14px;
+}
+
+.fuente-desc {
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--tinta-suave);
+    text-align: left;
+    margin: 0 0 18px;
+    flex-grow: 1;
+}
+
+.fuente-accion {
+    display: inline-block;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--agua-oscuro);
+    margin-top: auto;
+}
+.fuente-accion i { transition: transform 0.25s var(--easing); }
+.fuente-card:hover .fuente-accion i { transform: translateX(5px); }
+
+/* ---------- Creditos ---------- */
+.base-creditos { padding: 20px 0 70px; }
+.creditos-caja {
+    max-width: 860px;
+    margin: 0 auto;
+    background: var(--niebla);
+    border-radius: var(--radio);
+    padding: 32px 36px;
+    font-size: 0.88rem;
+    color: var(--tinta-suave);
+}
+.creditos-caja > p { line-height: 1.7; margin-bottom: 1.4rem; }
+
+.creditos-lista {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 8px 20px;
+    margin: 0 0 1.2rem;
+}
+.creditos-lista dt {
+    font-weight: 700;
+    color: var(--tinta);
+    white-space: nowrap;
+}
+.creditos-lista dd { margin: 0; }
+.creditos-nota { margin: 0; font-style: italic; }
+
+@media (max-width: 575px) {
+    .creditos-caja { padding: 24px 20px; }
+    .creditos-lista { grid-template-columns: 1fr; gap: 2px; }
+    .creditos-lista dd { margin-bottom: 10px; }
+}

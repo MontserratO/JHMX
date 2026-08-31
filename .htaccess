@@ -1,18 +1,13 @@
 # Justicia Hidrica - Configuracion del sitio (Apache)
-#
-# NOTA: este archivo esta escrito SOLO en ASCII (sin acentos ni simbolos
-# especiales) a proposito. Apache en Windows lee el .htaccess byte a byte
-# y los caracteres multibyte pueden hacer que falle al interpretarlo.
-# Si lo editas, no agregues acentos ni guardes con BOM.
 
 
 # 1. No listar el contenido de las carpetas.
 Options -Indexes
 
+DirectoryIndex index.php index.html
+
 
 # 2. URLs limpias, sin .php
-#    /equipo      sirve equipo.php
-#    /equipo.php  redirige a /equipo (evita contenido duplicado)
 <IfModule mod_rewrite.c>
     RewriteEngine On
 

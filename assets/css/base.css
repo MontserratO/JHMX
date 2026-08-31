@@ -1,8 +1,8 @@
 /* ============================================================
-   JUSTICIA HÍDRICA — Hoja de estilos
+   Estilos GENERALES del sitio
    ============================================================ */
 
-/* ---------- TOKENS DE SITIO ---------- */
+/* ---------- TOKENS ---------- */
 :root {
     /* Marca / agua */
     --agua:         #6ec089;
@@ -54,7 +54,6 @@ a:hover { color: var(--agua-brillo); }
 
 .just { text-align: justify !important; }
 
-/* Foco visible por teclado (accesibilidad) */
 a:focus-visible,
 button:focus-visible,
 .btn-a:focus-visible,
@@ -64,7 +63,6 @@ button:focus-visible,
     border-radius: 4px;
 }
 
-/* Botón base */
 .btn-a {
     background: var(--agua);
     color: #fff;
@@ -84,7 +82,6 @@ button:focus-visible,
     box-shadow: var(--sombra);
 }
 
-/* Tablas  */
 table { width: 100%; margin-bottom: 1rem; border-collapse: collapse; }
 th, td { padding: 0.75rem; text-align: center; vertical-align: middle; border-top: 1px solid var(--linea); }
 thead { color: #fff; background-color: var(--agua); }
@@ -92,7 +89,6 @@ thead th { vertical-align: middle; text-align: center; border-bottom: 2px solid 
 table:hover tbody tr:hover { background-color: rgba(110, 192, 137, 0.10); }
 th a { color: #fff; }
 th a:hover { color: #e4f6ea; }
-
 
 /* ---------- BARRA GOBIERNO DE MÉXICO ---------- */
 .nav-gob { background-color: var(--agua-profundo) !important; }
@@ -111,7 +107,6 @@ th a:hover { color: #e4f6ea; }
 .nav-colsan { background-color: #f3f4f2 !important; border-bottom: 1px solid var(--linea); }
 #nav-colsan { transition: all 0.5s; z-index: 996; }
 #Principal #nav-colsan { z-index: 997; top: 56px; }
-
 
 #nav-colsan.nav-colsan-scrolled { top: -56px; }
 #Principal #nav-colsan.nav-colsan-scrolled { top: 0; }
@@ -137,7 +132,6 @@ th a:hover { color: #e4f6ea; }
 #nav-sistem { transition: all 0.5s; z-index: 1001; top: 56px; }
 
 #nav-sistem.nav-sistem-scrolled { top: 0; }
-
 
 .nav-sistem .dropdown-menu {
     border: none;
@@ -393,7 +387,7 @@ footer { margin-top: 0; }
     background-image:
         linear-gradient(rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)),
         url('../../img/AcueductoII-Qrt.JPG');
-    padding-top: 112px;          /* alto de las dos barras fijas */
+    padding-top: 112px;
     min-height: 350px;
     display: flex;
     align-items: center;
@@ -417,9 +411,9 @@ footer { margin-top: 0; }
 .headerSec .titulo {
     background: rgba(255, 255, 255, 0.95);
     border-radius: var(--radio);
-    border-top: 10px solid var(--agua-oscuro);   /* franja verde del sistema */
+    border-top: 10px solid var(--agua-oscuro);
     padding: 1.6rem 2rem;
-    max-width: 1140px;                           /* mas ancho que antes (900px) */
+    max-width: 1140px;
     width: 92%;
     text-align: center;
 }
@@ -460,6 +454,7 @@ footer { margin-top: 0; }
    EQUIPO
    ============================================================ */
 
+/* La tarjeta  */
 .equip {
     display: block;
     width: 100%;
@@ -496,7 +491,6 @@ footer { margin-top: 0; }
 }
 .equip:hover .equip-img img { transform: scale(1.05); }
 
-/* Zoom al modal */
 .equip-lupa {
     position: absolute;
     right: 8px;
@@ -568,7 +562,7 @@ footer { margin-top: 0; }
     justify-content: center;
     padding: 26px 22px;
 }
-/* Marca de agua decorativa: una gota difusa en la esquina */
+/* Marca de agua decorativa */
 .persona-media::before {
     content: "";
     position: absolute;
@@ -607,7 +601,7 @@ footer { margin-top: 0; }
     padding-bottom: 14px;
     position: relative;
 }
-/* Regla corta bajo el nombre, en lugar de una linea de ancho completo */
+/* Regla corta bajo el nombre */
 .persona-nombre::after {
     content: "";
     position: absolute;
@@ -658,6 +652,7 @@ footer { margin-top: 0; }
     transform: rotate(90deg);
 }
 
+/* En pantallas chicas, una columna: retrato arriba y datos abajo */
 @media (max-width: 767px) {
     .persona-grid { grid-template-columns: 1fr; min-height: 0; }
     .persona-media { padding: 24px 60px; }
@@ -673,170 +668,10 @@ footer { margin-top: 0; }
 }
 
 /* ============================================================
-   AGUA EN SLP  (y otras portadas de subsistema)
-   ============================================================ */
-
-/* Encabezado con fondo rotativo. */
-#header.header-rot {
-    position: relative;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    width: 100%;
-    min-height: 88vh;
-    --opacidad-negro: 0.25;
-    display: flex;
-    align-items: flex-end;
-    padding-top: 112px;
-    padding-bottom: 60px;
-    z-index: 1;
-    transition: background-image 1s ease-in-out;
-}
-
-/* Caja blanca con el titulo, la entrada y el boton */
-.hero-caja-cont { position: relative; z-index: 2; }
-.hero-caja {
-    background: rgba(255, 255, 255, 0.94);
-    border-top: 10px solid var(--agua-oscuro);
-    border-radius: var(--radio);
-    box-shadow: var(--sombra-alta);
-    padding: 1.9rem 3rem 1.7rem;
-    max-width: 1140px;
-    margin: 0 auto;
-    text-align: center;
-}
-.hero-caja h1 {
-    font-family: var(--fuente-titulo);
-    font-size: clamp(1.5rem, 3.2vw, 2.3rem);
-    font-weight: 700;
-    color: var(--tinta);
-    margin: 0 0 1rem;
-    line-height: 1.25;
-}
-.hero-caja p {
-    color: var(--tinta-suave);
-    font-size: 1rem;
-    line-height: 1.7;
-    max-width: 78ch;
-    margin: 0 auto 1.3rem;
-}
-
-#header.header-rot::after {
-    content: "";
-    position: absolute;
-    left: 0; right: 0; bottom: 0;
-    height: 40px;
-    pointer-events: none;
-    background: linear-gradient(to bottom,
-                rgba(255, 255, 255, 0) 0%,
-                rgba(255, 255, 255, 0.85) 100%);
-}
-
-/* Menu de secciones  */
-.menuSub {
-    position: relative;
-    z-index: 3;
-    margin-top: 1.5rem;
-    margin-bottom: 1rem;
-}
-.menuSub .icon-box {
-    max-width: 100%;
-    padding: 30px 16px 26px;
-    border-radius: var(--radio);
-    box-shadow: var(--sombra-alta);
-}
-.menuSub .icon { margin-bottom: 14px; }
-.menuSub .icon i { font-size: 40px; }
-.menuSub .tit { font-size: 0.95rem; line-height: 1.3; }
-.menuSub .icon-box:hover { transform: translateY(-8px); }
-
-.info { padding: 70px 0 40px; }
-.info-intro {
-    text-align: center;
-    font-family: var(--fuente-texto);
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.8;
-    color: var(--tinta-suave);
-    max-width: 1040px;
-    margin: 0 auto 2.2rem;
-    padding: 0 22px;
-}
-
-.unidad {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    background: rgba(110, 192, 137, 0.07);
-    border-left: 4px solid var(--agua-oscuro);
-    border-radius: 0 var(--radio-sm) var(--radio-sm) 0;
-    padding: 18px 22px;
-    cursor: default;
-}
-.unidad > i {
-    font-size: 28px;
-    color: var(--agua-oscuro);
-    flex-shrink: 0;
-    line-height: 1;
-}
-.unidad h3 {
-    font-family: var(--fuente-texto);
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--tinta);
-    margin: 0;
-    line-height: 1.3;
-}
-.unidad .sub {
-    font-size: 0.86rem;
-    color: var(--tinta-suave);
-    margin: 3px 0 0;
-}
-
-/* Bloque de texto descriptivo */
-.info-texto {
-    max-width: 1040px;
-    margin: 0 auto;
-    padding: 0 22px;
-}
-.info-texto p {
-    text-align: justify;
-    line-height: 1.8;
-    color: var(--tinta-suave);
-    margin-bottom: 1.2rem;
-}
-
-.info-texto .parrafo-ancho {
-    margin-bottom: 1.6rem;
-}
-
-/* ---------- Bloque del SIG ---------- */
-.sig { padding: 60px 0; }
-.sig p { line-height: 1.75; color: var(--tinta-suave); }
-.sig-texto {
-    max-width: 54ch;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: justify;
-}
-.sig .titulo-seccion h2 { margin-top: 0; }
-.sig img { max-height: 420px; display: block; margin: 0 auto; }
-
-.titulo-seccion.titulo-izq { text-align: left; padding-bottom: 10px; }
-.titulo-seccion.titulo-izq h2 { margin-top: 0; }
-.titulo-seccion.titulo-izq h2::after { left: 0; }
-
-@media (max-width: 991px) {
-    #header.header-rot { background-attachment: scroll; min-height: 74vh; }
-    .hero-caja { padding: 2rem 1.6rem 1.8rem; }
-    .info { padding: 50px 0 30px; }
-}
-
-/* ============================================================
    ACCESIBILIDAD Y PAGINAS DE ERROR
    ============================================================ */
 
+/* Enlace para saltarse la navegacion: invisible hasta que se tabula */
 .saltar-contenido {
     position: absolute;
     left: -9999px;
@@ -905,6 +740,7 @@ footer { margin-top: 0; }
     flex-wrap: wrap;
     margin-bottom: 1.8rem;
 }
+/* Boton secundario*/
 .btn-b {
     background: transparent;
     color: var(--agua-oscuro);

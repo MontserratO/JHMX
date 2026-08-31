@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Clase base para el acceso a datos. Antes CAD
+ */
+
 defined('JH_APP') || exit('Acceso no permitido.');
 
 abstract class Repository
@@ -47,6 +51,13 @@ abstract class Repository
         $stmt = $this->db()->prepare($sql);
         $stmt->execute($bind);
         return $stmt->fetchAll();
+    }
+
+    public function contar(): int
+    {
+        $stmt = $this->db()->prepare("SELECT COUNT(*) FROM `{$this->table}`");
+        $stmt->execute();
+        return (int) $stmt->fetchColumn();
     }
 
     public function find(int $id): ?array
