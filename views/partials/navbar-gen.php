@@ -22,7 +22,7 @@
                     <a class="nav-link" href="<?= base_url('Hidropesquisa') ?>">Hidropesquisa</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="https://agua.conahcyt.mx/trasvases/">Trasvases</a>
+                    <a class="nav-link" href="https://www.colsan.edu.mx/justiciahidricamx/trasvases/">Trasvases</a>
                 </li>
             </ul>
         </div>

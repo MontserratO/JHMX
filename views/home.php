@@ -37,7 +37,7 @@
                             </a>
                         </div>
                         <div class="col-6 col-md-4 col-lg-2 my-2 tarjeta-menu">
-                            <a href="https://agua.conahcyt.mx/trasvases/" class="card-link">
+                            <a href="https://www.colsan.edu.mx/justiciahidricamx/trasvases/" class="card-link">
                                 <div class="icon-box h-100" data-aos="fade-up" data-aos-delay="300">
                                     <div class="icon"><i class="bi bi-tsunami"></i></div>
                                     <h3 class="tit">Trasvases y justicia hídrica</h3>
