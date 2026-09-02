@@ -18,41 +18,115 @@ abstract class Repository
         return Database::conn();
     }
 
-    public function all(array $params = []): array
+    /**
+     * Devuelve valores distintos que existen en una columna, para llenar los filtros
+     * desplegables (facetas).
+     */
+    public function valoresDe(string $columna): array
     {
-        $order = pick($params['order'] ?? '', $this->columns, $this->defaultOrder);
-        $dir   = pick_dir($params['dir'] ?? '');
+        $col = pick($columna, $this->columns, '');
+        if ($col === '') {
+            return [];
+        }
 
-        $sql  = "SELECT * FROM `{$this->table}`";
-        $bind = [];
+        $sql = "SELECT DISTINCT `$col` AS v
+                FROM `{$this->table}`
+                WHERE `$col` IS NOT NULL AND TRIM(`$col`) <> ''
+                ORDER BY `$col`
+                LIMIT 300";
 
-        $filtro   = $params['filtro']   ?? '';
+        $stmt = $this->db()->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+
+    /**
+     * Devuelve la cláusula WHERE y los parámetros de enlace para la búsqueda y los filtros.
+     */
+    private function filtro(array $params): array
+    {
+        $condiciones = [];
+        $bind        = [];
+        $facetas = $params['facetas'] ?? [];
+        $i = 0;
+        foreach ($facetas as $columna => $valor) {
+            $valor = trim((string) $valor);
+            if ($valor === '') {
+                continue;
+            }
+            $col = pick((string) $columna, $this->columns, '');
+            if ($col === '') {
+                continue;
+            }
+            $condiciones[]     = "`$col` = :fac$i";
+            $bind[":fac$i"]    = $valor;
+            $i++;
+        }
+
+        // --- Búsqueda de texto libre ---
         $busqueda = trim($params['busqueda'] ?? '');
-
         if ($busqueda !== '') {
+            $filtro = $params['filtro'] ?? '';
+
             if ($filtro === '' || $filtro === 'General') {
-                $conds = [];
-                foreach ($this->columns as $i => $col) {
-                    $conds[]      = "`$col` LIKE :b$i";
-                    $bind[":b$i"] = "%$busqueda%";
+                $ors = [];
+                foreach ($this->columns as $j => $col) {
+                    $ors[]        = "`$col` LIKE :b$j";
+                    $bind[":b$j"] = "%$busqueda%";
                 }
-                $sql .= ' WHERE ' . implode(' OR ', $conds);
+                $condiciones[] = '(' . implode(' OR ', $ors) . ')';
             } else {
                 $col = pick($filtro, $this->columns, '');
                 if ($col !== '') {
-                    $sql        .= " WHERE `$col` LIKE :b";
-                    $bind[':b']  = "%$busqueda%";
+                    $condiciones[] = "`$col` LIKE :b";
+                    $bind[':b']    = "%$busqueda%";
                 }
             }
         }
 
-        $sql .= " ORDER BY `{$order}` {$dir} LIMIT 150";
+        if ($condiciones === []) {
+            return ['', []];
+        }
+
+        return [' WHERE ' . implode(' AND ', $condiciones), $bind];
+    }
+
+    /**
+     * Devuelve todos los registros de la tabla, con filtros y paginación.
+     */
+    public function all(array $params = [], int $porPagina = 0, int $pagina = 1): array
+    {
+        $order = pick($params['order'] ?? '', $this->columns, $this->defaultOrder);
+        $dir   = pick_dir($params['dir'] ?? '');
+
+        [$where, $bind] = $this->filtro($params);
+
+        $sql = "SELECT * FROM `{$this->table}`{$where} ORDER BY `{$order}` {$dir}";
+
+        if ($porPagina > 0) {
+            $porPagina = max(1, min(200, $porPagina));
+            $offset    = max(0, ($pagina - 1) * $porPagina);
+            $sql .= " LIMIT {$porPagina} OFFSET {$offset}";
+        }
 
         $stmt = $this->db()->prepare($sql);
         $stmt->execute($bind);
         return $stmt->fetchAll();
     }
 
+    /**
+     * Devuelve cuántos registros hay en la tabla, con filtros aplicados.
+     */
+    public function contarFiltrado(array $params = []): int
+    {
+        [$where, $bind] = $this->filtro($params);
+
+        $stmt = $this->db()->prepare("SELECT COUNT(*) FROM `{$this->table}`{$where}");
+        $stmt->execute($bind);
+        return (int) $stmt->fetchColumn();
+    }
+
+    /** Devuelve el número total de registros en la tabla. */
     public function contar(): int
     {
         $stmt = $this->db()->prepare("SELECT COUNT(*) FROM `{$this->table}`");
@@ -60,6 +134,7 @@ abstract class Repository
         return (int) $stmt->fetchColumn();
     }
 
+    /** Devuelve un registro por su ID, o null si no existe. */
     public function find(int $id): ?array
     {
         $stmt = $this->db()->prepare("SELECT * FROM `{$this->table}` WHERE ID = ?");
@@ -68,6 +143,7 @@ abstract class Repository
         return $row ?: null;
     }
 
+    /** Inserta un registro. $data es un arreglo columna => valor. */
     public function create(array $data): bool
     {
         $data = $this->onlyFillable($data);
@@ -84,6 +160,7 @@ abstract class Repository
         return $stmt->execute(array_values($data));
     }
 
+    /** Actualiza el registro con ese ID. */
     public function update(int $id, array $data): bool
     {
         $data = $this->onlyFillable($data);
@@ -101,12 +178,14 @@ abstract class Repository
         return $stmt->execute($values);
     }
 
+    /** Elimina el registro con ese ID. */
     public function delete(int $id): bool
     {
         $stmt = $this->db()->prepare("DELETE FROM `{$this->table}` WHERE ID = ?");
         return $stmt->execute([$id]);
     }
 
+    /** Deja pasar solo las claves declaradas en $fillable. */
     private function onlyFillable(array $data): array
     {
         return array_intersect_key($data, array_flip($this->fillable));

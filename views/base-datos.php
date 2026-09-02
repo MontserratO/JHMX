@@ -68,25 +68,32 @@
                     por el Programa Agua y Sociedad de El Colegio de San Luis, A.C., con recursos del
                     proyecto FMSLP-2002-4836 CONACYT — Gobierno del Estado de San Luis Potosí.
                 </p>
-                <dl class="creditos-lista">
-                    <dt>Coordinador</dt>
-                    <dd>Francisco Peña</dd>
-
-                    <dt>Idea y diseño</dt>
-                    <dd>Carlos Núñez · Francisco Peña · Elda Barbosa</dd>
-
-                    <dt>Rediseño y desarrollo</dt>
-                    <dd>Montserrat Galván</dd>
-
-                    <dt>Investigación</dt>
-                    <dd>Francisco Peña · Germán Santacruz · Rosario Alcalde · Carmen Zetina · Mónica Luna</dd>
-
-                    <dt>Captura</dt>
-                    <dd>Carmen Zetina · Mónica Luna · Rosario Alcalde</dd>
-
-                    <dt>Edición</dt>
-                    <dd>Francisco Peña</dd>
-                </dl>
+                <div class="creditos-lista">
+                    <div>
+                        <p class="creditos-rol">Coordinador</p>
+                        <p class="creditos-nombres">Francisco Peña</p>
+                    </div>
+                    <div>
+                        <p class="creditos-rol">Idea y diseño</p>
+                        <p class="creditos-nombres">Carlos Núñez · Francisco Peña · Elda Barbosa</p>
+                    </div>
+                    <div>
+                        <p class="creditos-rol">Rediseño y desarrollo</p>
+                        <p class="creditos-nombres">Montserrat Galván</p>
+                    </div>
+                    <div>
+                        <p class="creditos-rol">Investigación</p>
+                        <p class="creditos-nombres">Francisco Peña · Germán Santacruz · Rosario Alcalde · Carmen Zetina · Mónica Luna</p>
+                    </div>
+                    <div>
+                        <p class="creditos-rol">Captura</p>
+                        <p class="creditos-nombres">Carmen Zetina · Mónica Luna · Rosario Alcalde</p>
+                    </div>
+                    <div>
+                        <p class="creditos-rol">Edición</p>
+                        <p class="creditos-nombres">Francisco Peña</p>
+                    </div>
+                </div>
                 <p class="creditos-nota">
                     Agradecemos la colaboración especial de Judith Corpus.
                 </p>

@@ -214,21 +214,32 @@
     color: var(--tinta);
     margin: 0 0 6px;
 }
-
 .fuente-total {
+    position: relative;
     font-size: 0.82rem;
     font-weight: 700;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: var(--agua-oscuro);
-    margin: 0 0 14px;
+    margin: 0 0 22px;
+    padding-bottom: 14px;
+}
+.fuente-total::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: calc(50% - 30px);
+    width: 60px;
+    height: 3px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--agua-oscuro), var(--agua));
 }
 
 .fuente-desc {
     font-size: 0.92rem;
     line-height: 1.65;
     color: var(--tinta-suave);
-    text-align: left;
+    text-align: justify;
     margin: 0 0 18px;
     flex-grow: 1;
 }
@@ -253,25 +264,399 @@
     padding: 32px 36px;
     font-size: 0.88rem;
     color: var(--tinta-suave);
+    text-align: center;
 }
 .creditos-caja > p { line-height: 1.7; margin-bottom: 1.4rem; }
-
 .creditos-lista {
     display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 8px 20px;
-    margin: 0 0 1.2rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px 32px;
+    margin: 0 0 1.4rem;
+    text-align: center;
 }
-.creditos-lista dt {
+.creditos-rol {
     font-weight: 700;
     color: var(--tinta);
-    white-space: nowrap;
+    margin: 0 0 2px;
 }
-.creditos-lista dd { margin: 0; }
+.creditos-nombres {
+    margin: 0;
+    line-height: 1.6;
+}
 .creditos-nota { margin: 0; font-style: italic; }
 
 @media (max-width: 575px) {
     .creditos-caja { padding: 24px 20px; }
-    .creditos-lista { grid-template-columns: 1fr; gap: 2px; }
-    .creditos-lista dd { margin-bottom: 10px; }
+    .creditos-lista { grid-template-columns: 1fr; gap: 14px; }
+}
+
+/* ============================================================
+   VISUALIZADOR DE TABLAS  (tesis / prensa / leyes)
+   ============================================================ */
+
+.visor { padding: 10px 0 70px; }
+
+.visor-intro {
+    max-width: 82ch;
+    margin: 0 auto 2rem;
+    text-align: justify;
+    line-height: 1.75;
+    color: var(--tinta-suave);
+}
+
+/* ---------- Buscador ----------  */
+.visor-busca {
+    max-width: 940px;
+    margin: 0 auto 1.8rem;
+    background: #fff;
+    border: 1px solid var(--linea);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra);
+    padding: 20px 22px;
+}
+
+.visor-busca-campos {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.visor-select,
+.visor-input,
+.visor-select-faceta {
+    border: 1px solid var(--linea);
+    border-radius: var(--radio-sm);
+    background: #fff;
+    padding: 10px 14px;
+    font-size: 0.94rem;
+    color: var(--tinta);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.visor-select:focus,
+.visor-input:focus,
+.visor-select-faceta:focus {
+    outline: none;
+    border-color: var(--agua);
+    box-shadow: 0 0 0 3px rgba(110, 192, 137, 0.22);
+}
+.visor-select { flex: 0 0 220px; }
+.visor-input  { flex: 1 1 260px; }
+.visor-busca .btn-a { flex: 0 0 auto; padding: 10px 26px; }
+
+.visor-limpiar {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 0.86rem;
+    font-weight: 600;
+}
+
+/* ---------- Resumen de resultados ---------- */
+.visor-resumen {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--linea);
+}
+.visor-conteo { margin: 0; font-size: 0.92rem; color: var(--tinta-suave); }
+.visor-conteo strong { color: var(--tinta); }
+
+.visor-porpagina { font-size: 0.85rem; color: var(--tinta-suave); }
+.visor-porpagina a {
+    display: inline-block;
+    padding: 3px 10px;
+    margin-left: 4px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+.visor-porpagina a:hover { background: var(--agua-claro); }
+.visor-porpagina a.activo { background: var(--agua); color: #fff !important; }
+
+/* ---------- Tabla ---------- */
+.visor-tabla { width: 100%; border-collapse: collapse; }
+.visor-tabla thead { background: var(--agua); }
+.visor-tabla th {
+    padding: 12px 14px;
+    text-align: left;
+    vertical-align: middle;
+    font-size: 0.88rem;
+    border: none;
+}
+.visor-tabla th a {
+    color: #fff !important;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+.visor-tabla th a:hover { color: #eaf7ef !important; }
+.orden-inactivo { opacity: 0.45; font-size: 0.8em; }
+
+.visor-tabla td {
+    padding: 12px 14px;
+    text-align: left;
+    vertical-align: middle;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    border-top: 1px solid var(--linea);
+    color: var(--tinta-suave);
+}
+.visor-tabla tbody tr:hover { background: rgba(110, 192, 137, 0.07); }
+.visor-tabla .col-accion { width: 1%; white-space: nowrap; text-align: center; }
+.btn-detalle { padding: 6px 16px; font-size: 0.82rem; }
+
+/* ---------- Tabla que se vuelve tarjetas en pantallas chicas ---------- */
+@media (max-width: 900px) {
+    .visor-tabla thead { display: none; }
+    .visor-tabla, .visor-tabla tbody, .visor-tabla tr, .visor-tabla td {
+        display: block;
+        width: 100%;
+    }
+    .visor-tabla tr {
+        background: #fff;
+        border: 1px solid var(--linea);
+        border-left: 4px solid var(--agua);
+        border-radius: var(--radio-sm);
+        box-shadow: var(--sombra);
+        margin-bottom: 16px;
+        padding: 6px 4px;
+    }
+    .visor-tabla td {
+        border: none;
+        display: grid;
+        grid-template-columns: 40% 1fr;
+        gap: 10px;
+        padding: 8px 14px;
+    }
+    .visor-tabla td::before {
+        content: attr(data-label);
+        font-weight: 700;
+        color: var(--tinta);
+        font-size: 0.82rem;
+    }
+    .visor-tabla td:empty { display: none; }
+    .visor-tabla .col-accion {
+        width: auto;
+        text-align: left;
+        border-top: 1px solid var(--linea);
+        margin-top: 4px;
+        padding-top: 12px;
+    }
+}
+
+/* ---------- Sin resultados ---------- */
+.visor-vacio {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--tinta-suave);
+}
+.visor-vacio i { font-size: 40px; color: var(--agua); opacity: 0.6; }
+.visor-vacio p { margin: 14px 0 0; }
+.visor-vacio-tip { font-size: 0.88rem; opacity: 0.8; }
+
+/* ---------- Paginacion ---------- */
+.visor-paginacion {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin-top: 30px;
+}
+.visor-paginacion a {
+    display: inline-block;
+    min-width: 40px;
+    padding: 8px 12px;
+    text-align: center;
+    border: 1px solid var(--linea);
+    border-radius: var(--radio-sm);
+    font-weight: 600;
+    font-size: 0.9rem;
+    background: #fff;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+.visor-paginacion a:hover { background: var(--agua-claro); border-color: var(--agua); }
+.visor-paginacion a.activo {
+    background: var(--agua);
+    border-color: var(--agua);
+    color: #fff !important;
+}
+.visor-paginacion a.inactivo {
+    opacity: 0.4;
+    pointer-events: none;
+}
+.pag-puntos { padding: 0 4px; color: var(--tinta-suave); }
+.pag-flecha { white-space: nowrap; }
+
+@media (max-width: 575px) {
+    .pag-flecha span, .pag-flecha { font-size: 0.82rem; }
+    .visor-paginacion a { min-width: 34px; padding: 7px 9px; }
+}
+
+/* ---------- Ficha completa (modal) ---------- */
+.ficha-modal {
+    border: none;
+    border-radius: var(--radio);
+    overflow: hidden;
+    position: relative;
+    box-shadow: var(--sombra-alta);
+}
+
+/* Cabecera con fondo degradado */
+.ficha-cabecera {
+    background: linear-gradient(135deg, var(--agua-oscuro) 0%, var(--agua) 100%);
+    color: #fff;
+    padding: 26px 56px 22px 30px;
+}
+.ficha-etiqueta {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.22);
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+.ficha-titulo {
+    font-family: var(--fuente-titulo);
+    font-size: clamp(1.15rem, 2.3vw, 1.5rem);
+    font-weight: 700;
+    line-height: 1.35;
+    color: #fff;
+    margin: 0;
+}
+
+/* Boton de cerrar flotante */
+.ficha-cerrar {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 3;
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.25);
+    color: #fff;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s var(--easing);
+}
+.ficha-cerrar:hover { background: rgba(255, 255, 255, 0.45); transform: rotate(90deg); }
+
+.ficha-modal .modal-body { padding: 26px 30px 30px; }
+
+/* --- Campo destacado --- */
+.ficha-principal {
+    background: rgba(110, 192, 137, 0.08);
+    border-left: 4px solid var(--agua);
+    border-radius: 0 var(--radio-sm) var(--radio-sm) 0;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+}
+.ficha-principal-label {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--agua-oscuro);
+    margin-bottom: 8px;
+}
+.ficha-principal-texto {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--tinta);
+    text-align: justify;
+}
+
+/* --- Datos secundarios, en rejilla compacta --- */
+.ficha-datos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px 24px;
+}
+.ficha-dato {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--linea);
+}
+.ficha-dato-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--tinta-suave);
+    opacity: 0.85;
+    margin-bottom: 3px;
+}
+.ficha-dato-valor {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--tinta);
+}
+
+@media (max-width: 575px) {
+    .ficha-cabecera { padding: 22px 50px 18px 22px; }
+    .ficha-modal .modal-body { padding: 20px 22px 24px; }
+    .ficha-principal { padding: 16px 18px; }
+    .ficha-datos { grid-template-columns: 1fr; }
+}
+
+/* ---------- Filtros por faceta ---------- */
+.visor-facetas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 18px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--linea);
+}
+.visor-faceta {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1 1 200px;
+}
+.visor-faceta label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--tinta-suave);
+}
+.visor-select-faceta { width: 100%; }
+
+/* Etiqueta que resume cada filtro activo en la linea de resultados */
+.visor-chip {
+    display: inline-block;
+    background: var(--agua-claro);
+    color: var(--agua-oscuro);
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-left: 6px;
+}
+
+/* Iconos de los desplegables de la barra del sistema */
+.nav-sistem .dropdown-item i {
+    width: 20px;
+    color: var(--agua-oscuro);
+    opacity: 0.8;
+}
+
+@media (max-width: 575px) {
+    .visor-faceta { flex: 1 1 100%; }
 }

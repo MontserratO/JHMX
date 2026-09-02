@@ -21,4 +21,5 @@ View::render('base-datos', [
     'descripcion' => 'Base de datos sobre estudios, conflictos y regulaciones de los usos del agua en San Luis Potosí.',
     'body_id'     => 'BaseDatos',
     'navbars'     => ['navbar-colsan', 'navbar-sist'],
+    'css'         => [base_url('assets/css/elagua.css')],
 ]);
