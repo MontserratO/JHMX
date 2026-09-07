@@ -6,7 +6,6 @@
    AGUA EN SLP  (y otras portadas de subsistema)
    ============================================================ */
 
-/* Encabezado con fondo rotativo. */
 #header.header-rot {
     position: relative;
     background-size: cover;
@@ -954,4 +953,254 @@
     .libro-btn-txt { display: none; }
     .libro-barra { gap: 10px; }
     .libro-minis { padding: 10px 12px; }
+}
+
+/* ============================================================
+   MODAL COMPARTIDO DE PDF  (tesis y planes)
+   ============================================================ */
+.pdf-modal { border: none; border-radius: var(--radio); overflow: hidden; }
+.pdf-modal .modal-header {
+    border-bottom: 3px solid var(--agua);
+    gap: 14px;
+    align-items: center;
+}
+.pdf-modal .modal-title {
+    font-family: var(--fuente-texto);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--tinta);
+    line-height: 1.35;
+    flex: 1;
+}
+.pdf-modal-acciones { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.pdf-modal .modal-body { padding: 0; }
+
+.pdf-marco {
+    display: block;
+    width: 100%;
+    height: 76vh;
+    min-height: 460px;
+    border: none;
+    background: #f4f5f6;
+}
+
+.pdf-movil { display: none; }
+@media (max-width: 767px) {
+    .pdf-marco { display: none; }
+    .pdf-movil {
+        display: block;
+        text-align: center;
+        padding: 44px 26px 48px;
+    }
+    .pdf-movil i { font-size: 44px; color: var(--colsan-rojo); }
+    .pdf-movil p {
+        margin: 14px 0 20px;
+        font-size: 0.92rem;
+        color: var(--tinta-suave);
+    }
+}
+
+/* ============================================================
+   TESIS  (tarjetas)
+   ============================================================ */
+.tesis-seccion { padding: 10px 0 70px; }
+
+.tesis-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    background: #fff;
+    border: 1px solid var(--linea);
+    border-top: 4px solid var(--agua);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra);
+    padding: 22px 24px 20px;
+    transition: transform 0.3s var(--easing), box-shadow 0.3s var(--easing),
+                border-color 0.3s ease;
+}
+.tesis-card:hover,
+.tesis-card:focus-visible {
+    transform: translateY(-4px);
+    box-shadow: var(--sombra-alta);
+    border-color: var(--agua);
+    border-top-color: var(--agua-oscuro);
+}
+
+.tesis-cabecera {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+.tesis-nivel {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    color: #fff;
+    background: var(--agua);
+    transition: filter 0.3s ease;
+}
+.tesis-nivel.nivel-doctorado    { background: #2f6f8f; }
+.tesis-nivel.nivel-maestria     { background: var(--agua-oscuro); }
+.tesis-nivel.nivel-licenciatura { background: #b58a2c; }
+.tesis-nivel.nivel-otro         { background: var(--tinta-suave); }
+.tesis-card:hover .tesis-nivel  { filter: brightness(1.1); }
+.tesis-cabecera i { font-size: 1.4rem; color: var(--colsan-rojo); opacity: 0.75; }
+
+.tesis-titulo {
+    font-family: var(--fuente-titulo);
+    font-size: 1.08rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--tinta);
+    margin: 0 0 12px;
+}
+
+.tesis-autor {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--tinta);
+    margin: 0 0 4px;
+}
+.tesis-autor i { color: var(--agua-oscuro); }
+
+.tesis-grado {
+    font-size: 0.84rem;
+    font-style: italic;
+    color: var(--tinta-suave);
+    margin: 0 0 16px;
+    flex-grow: 1;
+}
+
+.tesis-accion {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: auto;
+    margin-left: auto;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--agua-oscuro);
+}
+.tesis-accion i { transition: transform 0.25s var(--easing); }
+.tesis-card:hover .tesis-accion i { transform: translateX(5px); }
+
+/* ============================================================
+   PLANES Y PROGRAMAS
+   ============================================================ */
+.planes-seccion { padding: 10px 0 70px; }
+
+.plan-card {
+    background: #fff;
+    border: 1px solid var(--linea);
+    border-radius: var(--radio-sm);
+    overflow: hidden;
+    margin-bottom: 28px;
+}
+
+.plan-encabezado {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 14px 24px;
+    background: var(--agua-oscuro);
+}
+.plan-encabezado h2 {
+    font-family: var(--fuente-texto);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: #fff;
+    margin: 0;
+}
+.plan-anio {
+    flex-shrink: 0;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.plan-cuerpo {
+    display: flex;
+    align-items: flex-start;
+    gap: 26px;
+    padding: 24px;
+}
+
+.plan-imagen {
+    flex: 0 0 330px;
+    align-self: center;
+    margin-left: auto;
+    aspect-ratio: 4 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--niebla);
+    border: 1px solid var(--linea);
+    border-radius: 3px;
+    padding: 16px;
+    overflow: hidden;
+}
+.plan-imagen img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+.plan-contenido {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.plan-desc {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--tinta);
+    line-height: 1.55;
+    text-align: center;
+    margin: 0 0 18px;
+}
+
+.plan-docs {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    width: 100%;
+    max-width: 560px;
+}
+.plan-docs li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-top: 1px solid var(--linea);
+}
+.plan-docs li > i { color: var(--colsan-rojo); font-size: 1.15rem; flex-shrink: 0; }
+.plan-doc-nombre {
+    flex: 1;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: var(--tinta-suave);
+    min-width: 0;
+}
+.plan-doc-ver { flex-shrink: 0; padding: 6px 20px; font-size: 0.82rem; }
+
+@media (max-width: 991px) {
+    .plan-imagen { flex: 0 0 250px; }
+}
+@media (max-width: 767px) {
+    .plan-cuerpo { flex-direction: column; gap: 18px; }
+    .plan-imagen { flex: none; width: 100%; max-width: 300px; margin: 0 auto; }
+    .plan-docs li { flex-wrap: wrap; }
+    .plan-doc-nombre { flex: 1 1 100%; }
+    .plan-doc-ver { margin-left: auto; }
+    .plan-encabezado { flex-wrap: wrap; }
 }
