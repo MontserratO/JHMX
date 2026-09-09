@@ -697,7 +697,6 @@
     border-bottom: 1px solid var(--linea);
 }
 
-/* Buscador dentro del PDF */
 .libro-buscador {
     position: relative;
     flex: 1 1 260px;
@@ -1536,3 +1535,47 @@
     .mosaico-accion { display: none; }
     .recursos-tab { padding: 10px 16px; font-size: 0.82rem; }
 }
+
+/* ============================================================
+   SIG  (portada del Sistema de Informacion Geografica)
+   ============================================================ */
+
+.sig-intro { padding: 50px 0 60px; }
+.sig-intro p {
+    text-align: justify;
+    line-height: 1.8;
+    color: var(--tinta-suave);
+    margin-bottom: 1.1rem;
+}
+
+.sig-mapa {
+    margin: 0;
+    text-align: center;
+    padding: 20px;
+}
+.sig-mapa img {
+    max-width: 100%;
+    max-height: 380px;
+    filter: drop-shadow(0 14px 28px rgba(36, 48, 43, 0.22));
+}
+.sig-mapa figcaption {
+    margin-top: 14px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tinta-suave);
+}
+
+/* ---------- Accesos a las secciones ---------- */
+.sig-secciones { padding: 30px 0 20px; }
+.sig-secciones .fuente-card { padding: 26px 20px 20px; }
+.sig-secciones .fuente-icono { width: 66px; height: 66px; margin-bottom: 14px; }
+.sig-secciones .fuente-icono i { font-size: 28px; }
+.sig-secciones .fuente-card h3 { font-size: 1rem; margin-bottom: 12px; }
+.sig-secciones .fuente-desc { font-size: 0.87rem; text-align: left; }
+
+@media (max-width: 991px) {
+    .sig-mapa img { max-height: 300px; }
+}
+
