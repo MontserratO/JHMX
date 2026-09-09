@@ -341,7 +341,7 @@ INSERT INTO galeria_archivos (galeria_id, Titulo, Ruta, Libro, Orden) VALUES
 (3, 'Sin titulo', 'img/Fotos/GuardianesdelaSierra/IMG_8613.JPG', NULL, 93),
 (4, 'Junta de Ejidatarios en Independencia', 'img/Videos/AguaenSanLuisPotosí/juntaIndependencia6.mp4', NULL, 0),
 (4, 'Junta de Ejidatarios en Independencia', 'img/Videos/AguaenSanLuisPotosí/juntaIndependencia7.mp4', NULL, 1),
-(5, 'Programa de saneamiento', 'img/Doc/AguaenSanLuisPotosí/Programa de saneamiento.pdf', 'https://heyzine.com/flip-book/71d71703ff.html', 0);
+(5, 'Programa de saneamiento', 'img/Doc/AguaenSanLuisPotosí/Programa de saneamiento.pdf', NULL, 0);
 
 -- ----------------------------------------------------------
 -- 4. PLANES Y PROGRAMAS

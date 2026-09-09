@@ -1,6 +1,6 @@
 /* Visor de PDF con presentación de libro abierto. */
 
-(function () {
+window.VisorLibro = (function () {
     "use strict";
 
     var CDN_WORKER = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
