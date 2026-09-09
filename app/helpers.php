@@ -81,6 +81,40 @@ function file_url(string $path): string
     return base_url(implode('/', $tramos));
 }
 
+/**
+ * Comprueba si existe un thumbnail para un archivo y devuelve su URL. Si no existe, devuelve la URL del archivo original.
+ */
+function thumb_url(string $path): string
+{
+    $path = ltrim($path, '/');
+    $dir  = dirname($path);
+    $base = basename($path);
+
+    $mini = $dir . '/thumbs/' . $base;
+
+    if (is_file(__DIR__ . '/../' . $mini)) {
+        return file_url($mini);
+    }
+    return file_url($path);
+}
+
+/**
+ * Comprueba si existe un poster para un video y devuelve su URL. Si no existe, devuelve null.
+ */
+function poster_video(string $path): ?string
+{
+    $path = ltrim($path, '/');
+    $dir  = dirname($path);
+    $base = pathinfo($path, PATHINFO_FILENAME);
+
+    $poster = $dir . '/thumbs/' . $base . '.jpg';
+
+    if (is_file(__DIR__ . '/../' . $poster)) {
+        return file_url($poster);
+    }
+    return null;
+}
+
 /** Redirige y termina. */
 function redirect(string $url): void
 {
