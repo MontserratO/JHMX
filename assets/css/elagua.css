@@ -1619,7 +1619,7 @@
     width: 100%;
     --mapa-x: -1%;        /* desplazamiento horizontal del SVG */
     --mapa-y: 0%;         /* desplazamiento vertical */
-    --mapa-escala: 0.97;  /* tamano relativo a la imagen base */
+    --mapa-escala: 0.98;  /* tamano relativo a la imagen base */
 }
 .mapa-base { width: 100%; height: auto; display: block; }
 

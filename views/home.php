@@ -10,7 +10,7 @@
     <div class="IniTit">
         <div class="justify-content-center">
             <h1 class="shadow-green text-center col-xl-5 col-11 mx-auto py-5">
-                Justicia Hídrica · México
+                Justicia Hídrica - México
             </h1>
         </div>
     </div>
