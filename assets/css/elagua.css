@@ -1674,7 +1674,8 @@
 }
 .municipio.resaltado { filter: brightness(1.25) saturate(1.3); stroke-width: 1.8; }
 
-.cartel-conagua { display: none; }
+text.cartel-conagua { display: none; }
+g.cartel-conagua .line { display: none; }
 
 .line {
     fill: none;
@@ -2136,4 +2137,240 @@
     .presa-btn { padding: 9px 12px; }
     .presa-datos { grid-template-columns: 1fr; gap: 2px; }
     .presa-datos dd { text-align: left; margin-bottom: 8px; }
+}
+
+/* ============================================================
+   SIG: CRECIMIENTO URBANO Y ACUIFERO
+   ============================================================ */
+
+.crecimiento { padding: 10px 0 80px; }
+
+.crec-entrada {
+    max-width: 62ch;
+    margin: 0 auto 2.6rem;
+    text-align: center;
+    line-height: 1.75;
+    color: var(--tinta-suave);
+}
+
+.crec-entrada-2 {
+    max-width: 75ch;
+    margin: 0 auto 1.5rem;
+    text-align: center;
+    line-height: 1.75;
+    color: var(--tinta-suave);
+}
+
+.crec-serie {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: #fff;
+    border: 1px solid var(--linea);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra);
+    padding: 34px 34px 10px;
+}
+
+.crec-serie::before {
+    content: "";
+    position: absolute;
+    left: 57px;
+    top: 60px;
+    bottom: 60px;
+    width: 2px;
+    background: var(--linea);
+}
+
+.crec-bloque {
+    position: relative;
+    display: flex;
+    gap: 22px;
+    padding-bottom: 34px;
+}
+.crec-bloque:last-child { padding-bottom: 24px; }
+
+.crec-num {
+    position: relative;
+    z-index: 2;
+    flex: 0 0 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: var(--agua-oscuro);
+    color: #fff;
+    font-family: var(--fuente-titulo);
+    font-size: 1.2rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 0 6px #fff;
+}
+
+.crec-contenido { flex: 1; min-width: 0; }
+.crec-contenido h3 {
+    font-family: var(--fuente-texto);
+    font-size: 1.02rem;
+    font-weight: 700;
+    color: var(--tinta);
+    margin: 10px 0 6px;
+}
+.crec-contenido > p {
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: var(--tinta-suave);
+    margin-bottom: 1.1rem;
+}
+
+/* ---------- Figuras ---------- */
+.crec-figura { margin: 0; }
+
+.crec-imagen {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 1px solid var(--linea);
+    border-radius: var(--radio-sm);
+    background: #fff;
+    overflow: hidden;
+    cursor: zoom-in;
+    transition: box-shadow 0.3s var(--easing), border-color 0.3s ease;
+}
+.crec-imagen:hover,
+.crec-imagen:focus-visible {
+    box-shadow: var(--sombra);
+    border-color: var(--agua);
+}
+.crec-imagen img { width: 100%; height: auto; display: block; }
+
+.crec-lupa {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 15px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.94);
+    color: var(--agua-oscuro);
+    font-size: 0.8rem;
+    font-weight: 700;
+    box-shadow: var(--sombra);
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.25s ease, transform 0.25s var(--easing);
+}
+.crec-imagen:hover .crec-lupa,
+.crec-imagen:focus-visible .crec-lupa { opacity: 1; transform: translateY(0); }
+
+.crec-video {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 1px solid var(--linea);
+    border-radius: var(--radio-sm);
+    background: #10130f;
+}
+
+/* ---------- Linea del tiempo (crecimiento urbano) ---------- */
+.crec-tiempo {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 0 1.2rem;
+    padding: 0;
+    border-radius: var(--radio-sm);
+    overflow: hidden;
+    border: 1px solid var(--linea);
+}
+.crec-tiempo li { flex: 1 1 0; min-width: 56px; text-align: center; }
+.crec-color { display: block; height: 22px; }
+.crec-anio {
+    display: block;
+    padding: 5px 2px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--tinta);
+    background: #fff;
+}
+
+/* ============================================================
+   VISOR DE MAPAS
+   ============================================================ */
+.visor-mapa {
+    border: none;
+    background: #10130f;
+    display: flex;
+    flex-direction: column;
+}
+
+.visor-mapa-barra {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 20px;
+    background: rgba(255, 255, 255, 0.96);
+    border-bottom: 3px solid var(--agua);
+    flex-shrink: 0;
+}
+.visor-mapa-barra .modal-title {
+    font-family: var(--fuente-texto);
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: var(--tinta);
+    margin: 0;
+    min-width: 0;
+}
+.visor-mapa-controles { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.visor-mapa-nivel {
+    min-width: 52px;
+    text-align: center;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--tinta-suave);
+}
+
+.visor-mapa-lienzo {
+    flex: 1;
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    touch-action: none;
+}
+.visor-mapa-lienzo.ampliado { cursor: grab; }
+.visor-mapa-lienzo.arrastrando { cursor: grabbing; }
+.visor-mapa-lienzo img {
+    max-width: 100%;
+    max-height: 100%;
+    transform-origin: center;
+    transition: transform 0.18s var(--easing);
+    user-select: none;
+    -webkit-user-drag: none;
+}
+.visor-mapa-lienzo.ampliado img { max-width: none; max-height: none; }
+
+.visor-mapa-pista {
+    margin: 0;
+    padding: 8px;
+    text-align: center;
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.6);
+    flex-shrink: 0;
+}
+
+@media (max-width: 767px) {
+    .crec-serie { padding: 24px 18px 8px; }
+    .crec-serie::before { left: 37px; }
+    .crec-bloque { gap: 14px; }
+    .crec-num { flex: 0 0 38px; height: 38px; font-size: 1.05rem; box-shadow: 0 0 0 5px #fff; }
+    .crec-tiempo li { min-width: 20%; }
+    .crec-anio { font-size: 0.66rem; }
+    .visor-mapa-barra { flex-wrap: wrap; gap: 10px; }
+    .visor-mapa-barra .modal-title { flex: 1 1 100%; font-size: 0.86rem; }
+    .visor-mapa-pista { display: none; }
 }
