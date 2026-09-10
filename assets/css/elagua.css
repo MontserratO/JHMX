@@ -1674,6 +1674,8 @@
 }
 .municipio.resaltado { filter: brightness(1.25) saturate(1.3); stroke-width: 1.8; }
 
+.cartel-conagua { display: none; }
+
 .line {
     fill: none;
     stroke: #d32f2f;
@@ -1823,4 +1825,315 @@
 }
 @media (max-width: 479px) {
     .mapa-leyenda ul { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   SIG: PRESAS
+   ============================================================ */
+
+.mapa-presas .municipio {
+    fill: #d4620f;
+    stroke: #3b1a05;
+    stroke-width: 0.7;
+    pointer-events: none;
+    cursor: default;
+}
+.mapa-presas .municipio.centro,
+.mapa-presas .municipio.centroS { fill: #e9e5bb; }
+.mapa-presas .line { display: none; }
+
+/* ---------- Puntos numerados ---------- */
+.presa-marca { cursor: pointer; outline: none; }
+
+.presa-punto {
+    fill: #14543d;
+    stroke: #ffffff;
+    stroke-width: 1.6;
+    transition: fill 0.18s ease, r 0.18s var(--easing);
+}
+.presa-punto-num {
+    fill: #ffffff;
+    font-size: 7.5px;
+    font-weight: 700;
+    font-family: var(--fuente-texto);
+    pointer-events: none;
+    user-select: none;
+}
+
+.presa-marca:hover .presa-punto,
+.presa-marca:focus .presa-punto,
+.presa-marca.resaltada .presa-punto {
+    fill: #d32f2f;
+    r: 10;
+}
+.presa-marca.resaltada .presa-punto { animation: presa-latido 1s ease-in-out infinite; }
+@keyframes presa-latido {
+    0%, 100% { stroke-width: 1.6; }
+    50%      { stroke-width: 3.4; }
+}
+
+.leyenda-punto {
+    width: 13px;
+    height: 13px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #14543d;
+    border: 1.5px solid #fff;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
+}
+.zona-estatal    { background: #ffffff; }
+.zona-municipal  { background: #d4620f; }
+.zona-centroSLP  { background: #e9e5bb; }
+.leyenda-lista { display: block !important; }
+.leyenda-lista li { margin-bottom: 8px; }
+
+/* ---------- Lista de presas ---------- */
+.presas-lista {
+    margin-top: 30px;
+    background: #fff;
+    border: 1px solid var(--linea);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra);
+    padding: 20px 24px 24px;
+}
+.presas-lista h3 {
+    font-family: var(--fuente-texto);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--tinta-suave);
+    margin: 0 0 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--linea);
+}
+.presas-lista h3 span {
+    background: var(--agua);
+    color: #fff;
+    border-radius: 20px;
+    padding: 2px 10px;
+    margin-left: 6px;
+    letter-spacing: 0;
+}
+.presas-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.presa-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--linea);
+    border-radius: 20px;
+    background: #fff;
+    padding: 6px 16px 6px 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--tinta);
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.presa-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #14543d;
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    transition: background 0.2s ease;
+}
+.presa-chip:hover,
+.presa-chip:focus-visible,
+.presa-chip.resaltado {
+    background: var(--agua-claro);
+    border-color: var(--agua);
+    color: var(--agua-oscuro);
+}
+.presa-chip.resaltado .presa-num,
+.presa-chip:hover .presa-num { background: #d32f2f; }
+
+/* ============================================================
+   FICHA TECNICA DE LA PRESA - MODAL
+   ============================================================ */
+.presa-visor {
+    position: relative;
+    border: none;
+    border-radius: var(--radio);
+    overflow: hidden;
+    background: #10130f;
+    height: min(82vh, 760px);
+}
+
+.presa-foto {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: zoom-out;
+}
+.presa-visor.sin-panel .presa-foto { cursor: zoom-in; }
+.presa-visor.sin-foto .presa-foto { display: none; }
+.presa-visor.sin-foto {
+    background: linear-gradient(135deg, var(--agua-oscuro) 0%, var(--agua) 100%);
+}
+
+/* ---------- Barra superior ---------- */
+.presa-barra {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    z-index: 3;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 22px 24px 42px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.75), rgba(0,0,0,0));
+    color: #fff;
+    pointer-events: none;
+}
+.presa-barra button { pointer-events: auto; }
+
+.presa-etiqueta {
+    display: inline-block;
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.25);
+    padding: 3px 12px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+}
+.presa-titulo {
+    font-family: var(--fuente-titulo);
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+    line-height: 1.25;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+}
+.presa-municipio {
+    margin: 4px 0 0;
+    font-size: 0.9rem;
+    opacity: 0.92;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+}
+
+.presa-controles { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.presa-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--tinta);
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+.presa-btn:hover { background: #fff; }
+.presa-btn.presa-cerrar {
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    border-radius: 50%;
+    justify-content: center;
+}
+
+/* ---------- Panel de datos ---------- */
+.presa-panel {
+    position: absolute;
+    top: 0; right: 0; bottom: 0;
+    z-index: 2;
+    width: min(560px, 52%);
+    padding: 96px 26px 26px;
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-left: 1px solid rgba(255, 255, 255, 0.5);
+    transition: transform 0.4s var(--easing), opacity 0.3s ease;
+}
+.presa-visor.sin-panel .presa-panel {
+    transform: translateX(100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.presa-pista {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    margin: 0;
+    padding: 8px 18px;
+    border-radius: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-size: 0.8rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+.presa-visor.sin-panel .presa-pista { opacity: 1; }
+
+.presa-secciones { display: flex; flex-direction: column; gap: 16px; }
+.presa-bloque {
+    background: rgba(255, 255, 255, 0.75);
+    border-left: 3px solid var(--agua-oscuro);
+    border-radius: 0 var(--radio-sm) var(--radio-sm) 0;
+    padding: 14px 18px;
+}
+.presa-bloque h3 {
+    font-family: var(--fuente-texto);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--agua-oscuro);
+    margin: 0 0 10px;
+}
+.presa-datos {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 7px 16px;
+    margin: 0;
+}
+.presa-datos dt {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--tinta-suave);
+}
+.presa-datos dd {
+    margin: 0;
+    font-size: 0.86rem;
+    color: var(--tinta);
+    text-align: right;
+}
+
+@media (max-width: 767px) {
+    .presa-visor { height: 88vh; }
+    .presa-panel {
+        top: auto;
+        left: 0;
+        width: 100%;
+        height: 58%;
+        padding: 20px 20px 24px;
+        border-left: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.5);
+    }
+    .presa-visor.sin-panel .presa-panel { transform: translateY(100%); }
+    .presa-barra { padding: 18px 18px 34px; }
+    .presa-btn span { display: none; }
+    .presa-btn { padding: 9px 12px; }
+    .presa-datos { grid-template-columns: 1fr; gap: 2px; }
+    .presa-datos dd { text-align: left; margin-bottom: 8px; }
 }
