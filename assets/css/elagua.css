@@ -1539,6 +1539,17 @@
 /* ============================================================
    SIG  (portada del Sistema de Informacion Geografica)
    ============================================================ */
+.sig-entrada { padding: 26px 0 6px; }
+.sig-lead {
+    max-width: 62ch;
+    margin: 0 auto;
+    text-align: center;
+    font-family: var(--fuente-titulo);
+    font-size: clamp(1.05rem, 2vw, 1.3rem);
+    font-weight: 500;
+    line-height: 1.6;
+    color: var(--tinta);
+}
 
 .sig-intro { padding: 50px 0 60px; }
 .sig-intro p {
@@ -1579,3 +1590,237 @@
     .sig-mapa img { max-height: 300px; }
 }
 
+/* ============================================================
+   SIG: MAPA DE MUNICIPIOS
+   ============================================================ */
+
+.sig-mapa-seccion { padding: 10px 0 70px; }
+
+.sig-ayuda {
+    max-width: 74ch;
+    margin: 0 auto 2rem;
+    text-align: center;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: var(--tinta-suave);
+}
+.sig-ayuda i { color: var(--agua-oscuro); }
+
+/* ---------- Caja del mapa ---------- */
+.mapa-caja {
+    background: #fff;
+    border: 1px solid var(--linea);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra);
+    padding: 16px;
+}
+.mapa-marco {
+    position: relative;
+    width: 100%;
+    --mapa-x: -1%;        /* desplazamiento horizontal del SVG */
+    --mapa-y: 0%;         /* desplazamiento vertical */
+    --mapa-escala: 0.97;  /* tamano relativo a la imagen base */
+}
+.mapa-base { width: 100%; height: auto; display: block; }
+
+.mapa-svg {
+    position: absolute;
+    inset: 0;
+    transform: translate(var(--mapa-x), var(--mapa-y)) scale(var(--mapa-escala));
+    transform-origin: center;
+}
+.mapa-svg svg { width: 100%; height: 100%; display: block; }
+
+.mapa-cargando {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    background: rgba(255, 255, 255, 0.85);
+    color: var(--tinta-suave);
+    font-size: 0.9rem;
+}
+
+/* ---------- Colores por zona ---------- */
+.municipio {
+    stroke: #ffffff;
+    stroke-width: 0.9;
+    stroke-linejoin: round;
+    transition: fill 0.18s ease, filter 0.18s ease, stroke-width 0.18s ease;
+    cursor: pointer;
+}
+
+.municipio.altO,    .zona-altO    { fill: #cdb68c; background: #cdb68c; }
+.municipio.altC,    .zona-altC    { fill: #a79186; background: #a79186; }
+.municipio.altE,    .zona-altE    { fill: #a79b85; background: #a79b85; }
+.municipio.centro,  .zona-centro  { fill: #8c9adb; background: #8c9adb; }
+.municipio.centroS, .zona-centroS { fill: #8cb3da; background: #8cb3da; }
+.municipio.mediaO,  .zona-mediaO  { fill: #ff9c3f; background: #ff9c3f; }
+.municipio.mediaE,  .zona-mediaE  { fill: #ffb760; background: #ffb760; }
+.municipio.huasN,   .zona-huasN   { fill: #a7da8d; background: #a7da8d; }
+.municipio.huasC,   .zona-huasC   { fill: #78eb3e; background: #78eb3e; }
+.municipio.huasS,   .zona-huasS   { fill: #68ba3c; background: #68ba3c; }
+
+.municipio:hover,
+.municipio:focus,
+.municipio.activo {
+    fill: #fff;
+    stroke: var(--agua-oscuro);
+    stroke-width: 2.2;
+    outline: none;
+}
+.municipio.resaltado { filter: brightness(1.25) saturate(1.3); stroke-width: 1.8; }
+
+.line {
+    fill: none;
+    stroke: #d32f2f;
+    stroke-width: 2.6;
+    pointer-events: none;
+}
+
+/* ---------- Leyenda ---------- */
+.mapa-leyenda {
+    background: #fff;
+    border: 1px solid var(--linea);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra);
+    padding: 20px 24px;
+    margin-top: 28px;
+}
+.mapa-leyenda h3 {
+    font-family: var(--fuente-texto);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--tinta-suave);
+    margin: 0 0 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--linea);
+}
+.mapa-leyenda ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px 16px;
+}
+.mapa-leyenda li { margin: 0; }
+.mapa-leyenda .leyenda-conagua { grid-column: 1 / -1; }
+
+.leyenda-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 5px 6px;
+    border: none;
+    border-radius: 5px;
+    background: transparent;
+    font-size: 0.85rem;
+    line-height: 1.3;
+    color: var(--tinta);
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.18s ease;
+}
+.leyenda-item:hover,
+.leyenda-item.activo { background: var(--niebla); font-weight: 600; }
+
+.leyenda-color {
+    width: 18px;
+    height: 14px;
+    flex-shrink: 0;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    border-radius: 2px;
+}
+
+.leyenda-conagua {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 8px 2px;
+    margin-top: 8px;
+    border-top: 1px solid var(--linea);
+    font-size: 0.85rem;
+    color: var(--tinta);
+}
+.leyenda-linea {
+    width: 18px;
+    height: 3px;
+    flex-shrink: 0;
+    background: #d32f2f;
+    border-radius: 2px;
+}
+
+/* ---------- Macrolocalizacion ---------- */
+.mapa-macro {
+    background: #fff;
+    border: 1px solid var(--linea);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra);
+    padding: 12px;
+    margin: 0 0 20px;
+    text-align: center;
+}
+.mapa-macro img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+.mapa-macro figcaption {
+    margin-top: 8px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--tinta-suave);
+}
+
+/* ---------- Ficha del municipio ---------- */
+.mapa-ficha {
+    background: #fff;
+    border: 1px solid var(--linea);
+    border-top: 4px solid var(--agua);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra);
+    overflow: hidden;
+}
+.mapa-ficha img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+    background: var(--niebla);
+}
+.mapa-ficha-texto { padding: 16px 18px; text-align: center; }
+.mapa-ficha-texto h4 {
+    font-family: var(--fuente-titulo);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--tinta);
+    margin: 0 0 6px;
+    line-height: 1.3;
+}
+.mapa-ficha-texto p { margin: 0; font-size: 0.9rem; color: var(--tinta-suave); }
+.ficha-etiqueta {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--agua-oscuro);
+}
+
+@media (max-width: 991px) {
+    .mapa-caja { padding: 10px; }
+    .mapa-ficha img { aspect-ratio: 16 / 9; }
+}
+@media (max-width: 991px) {
+    .mapa-leyenda ul { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 767px) {
+    .mapa-leyenda ul { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 479px) {
+    .mapa-leyenda ul { grid-template-columns: 1fr; }
+}
