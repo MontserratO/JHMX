@@ -1674,8 +1674,7 @@
 }
 .municipio.resaltado { filter: brightness(1.25) saturate(1.3); stroke-width: 1.8; }
 
-text.cartel-conagua { display: none; }
-g.cartel-conagua .line { display: none; }
+.mapa-presas text.cartel-conagua { display: none; }
 
 .line {
     fill: none;
@@ -2373,4 +2372,181 @@ g.cartel-conagua .line { display: none; }
     .visor-mapa-barra { flex-wrap: wrap; gap: 10px; }
     .visor-mapa-barra .modal-title { flex: 1 1 100%; font-size: 0.86rem; }
     .visor-mapa-pista { display: none; }
+}
+
+/* ============================================================
+   SIG: VISOR DE MAPAS  (Leaflet con capas)
+   ============================================================ */
+
+.visor-sig { padding: 10px 0 70px; }
+
+.sig-visor {
+    position: relative;
+    display: flex;
+    border: 1px solid var(--linea);
+    border-radius: var(--radio);
+    overflow: hidden;
+    box-shadow: var(--sombra);
+    background: #fff;
+    height: min(78vh, 760px);
+}
+
+/* ---------- Panel de capas - Leyendas ---------- */
+.sig-panel {
+    flex: 0 0 280px;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-left: 1px solid var(--linea);
+    transition: margin-right 0.3s var(--easing);
+    z-index: 500;
+}
+.panel-oculto .sig-panel { margin-right: -280px; }
+
+.sig-panel-cab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 16px;
+    background: var(--agua-oscuro);
+    color: #fff;
+    flex-shrink: 0;
+}
+.sig-panel-cab h3 {
+    font-family: var(--fuente-texto);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.sig-panel-toggle {
+    position: absolute;
+    top: 50%;
+    right: 280px;
+    transform: translateY(-50%);
+    width: 34px;
+    height: 74px;
+    border: none;
+    border-radius: 8px 0 0 8px;
+    background: var(--agua-oscuro);
+    color: #fff;
+    cursor: pointer;
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: -3px 0 12px rgba(0, 0, 0, 0.28);
+    transition: right 0.3s var(--easing), background 0.2s ease;
+    z-index: 600;
+}
+.sig-panel-toggle:hover { background: var(--agua); }
+.panel-oculto .sig-panel-toggle { right: 0; }
+
+.sig-panel-cuerpo { flex: 1; overflow-y: auto; padding: 6px 0 16px; }
+
+.sig-grupo { padding: 10px 16px; border-bottom: 1px solid var(--linea); }
+.sig-grupo:last-child { border-bottom: none; }
+.sig-grupo h4 {
+    font-family: var(--fuente-texto);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--tinta-suave);
+    margin: 0 0 8px;
+}
+
+.sig-capa {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 6px 6px;
+    border-radius: 5px;
+    font-size: 0.84rem;
+    color: var(--tinta);
+    cursor: pointer;
+    transition: background 0.18s ease;
+}
+.sig-capa:hover { background: var(--niebla); }
+.sig-capa input { flex-shrink: 0; accent-color: var(--agua-oscuro); cursor: pointer; }
+.sig-capa-nombre { flex: 1; line-height: 1.3; }
+
+.sig-muestra {
+    width: 16px;
+    height: 12px;
+    flex-shrink: 0;
+    border: 1.5px solid var(--tinta-suave);
+    border-radius: 2px;
+    background: transparent;
+}
+.sig-muestra.sig-punto  { width: 12px; height: 12px; border-radius: 50%; }
+.sig-muestra.sig-linea  { height: 0; border-width: 0 0 3px 0; border-radius: 0; }
+.sig-muestra.sig-contorno { background: transparent !important; }
+.sig-muestra.sig-zonas {
+    background: linear-gradient(90deg, #825a4e 0 25%, #f0cd7c 25% 50%,
+                                       #f6f479 50% 75%, #5e8846 75% 100%) !important;
+    border-color: var(--tinta-suave);
+}
+
+.sig-sub {
+    list-style: none;
+    margin: 0 0 4px;
+    padding: 0 0 0 30px;
+}
+.sig-sub li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.76rem;
+    color: var(--tinta-suave);
+    padding: 2px 0;
+}
+
+.sig-cargando {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    border: 2px solid var(--agua-claro);
+    border-top-color: var(--agua-oscuro);
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+.sig-capa.cargando .sig-cargando {
+    opacity: 1;
+    animation: libro-girar 0.8s linear infinite;
+}
+.sig-capa.con-error { color: var(--colsan-rojo); }
+
+/* ---------- Mapa ---------- */
+.sig-mapa { flex: 1; min-width: 0; background: var(--niebla); }
+.sig-mapa .leaflet-container { height: 100%; width: 100%; font-family: var(--fuente-texto); }
+
+/* Ventana emergente con la identidad del sitio */
+.leaflet-popup-content-wrapper { border-radius: var(--radio-sm); }
+.sig-popup { font-size: 0.88rem; font-weight: 600; color: var(--tinta); }
+
+.sig-nota {
+    margin: 14px 0 0;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--tinta-suave);
+}
+
+@media (max-width: 767px) {
+    .sig-visor { height: 72vh; position: relative; }
+    .sig-panel {
+        position: absolute;
+        top: 0; bottom: 0; right: 0;
+        flex: none;
+        width: 250px;
+        box-shadow: var(--sombra-alta);
+    }
+    .panel-oculto .sig-panel { margin-right: -250px; }
+    .sig-panel-toggle { right: 250px; width: 30px; height: 64px; }
 }

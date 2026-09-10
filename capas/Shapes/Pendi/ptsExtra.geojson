@@ -1,0 +1,34 @@
+{
+    "type": "FeatureCollection",
+    "name": "ptsExtra",
+    "crs": {
+        "type": "name",
+        "properties": {
+            "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+        }
+    },
+    "features": [
+        {
+            "id": "69ef8a9fb7fe53.06605680",
+            "type": "Feature",
+            "properties": {
+                "Usuario": "Pruebas",
+                "Nombre": "El Colegio de San Luis A.C.",
+                "Descripcion": "Área de trabajo de Agua y Sociedad",
+                "PuntoTrabajo": "Esparcimiento",
+                "LugarVida": "Otro",
+                "PuntoContaminacion": "Jale minero",
+                "Localidad": "",
+                "Multimed": " ",
+                "Estado": 1
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -101.0167676036338, 
+                    22.129982344585827
+                ]
+            }
+        }
+    ]
+}
