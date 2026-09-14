@@ -1,0 +1,6 @@
+<IfModule mod_headers.c>
+    Header set Cache-Control "no-store, no-cache, must-revalidate, private"
+    Header set Pragma "no-cache"
+    Header set X-Frame-Options "DENY"
+    Header set X-Robots-Tag "noindex, nofollow"
+</IfModule>
