@@ -1,4 +1,4 @@
-/* fondo.js — Fondo rotativo del encabezado. */
+/*  Fondo rotativo del encabezado. */
 
 (function () {
     "use strict";
