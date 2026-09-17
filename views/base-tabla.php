@@ -60,7 +60,13 @@ $hasta = min($pagina * $porPagina, $total);
                 <h2><?= e($def['titulo']) ?></h2>
             </div>
 
-            <p class="visor-intro"><?= e($def['intro'] ?? $def['descripcion']) ?></p>
+            <?php
+            $intro = $def['intro'] ?? $def['descripcion'] ?? '';
+            $parrafos = is_array($intro) ? $intro : [$intro];
+            ?>
+            <?php foreach ($parrafos as $parrafo): ?>
+                <p class="visor-intro"><?= e($parrafo) ?></p>
+            <?php endforeach; ?>
 
             <!-- ===== Buscador ===== -->
             <form class="visor-busca" method="get" action="<?= base_url('ElaguaSLP/base/' . $clave) ?>">
